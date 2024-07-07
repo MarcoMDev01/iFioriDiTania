@@ -38,9 +38,7 @@
             </li>
         </ul>
 		<ul> <h2>fiori del mazzo</h2>
-			<form th:action="@{/admin/pagina_aggiungiFiorialMazzo/{mazzoId}(mazzoId=${mazzo.id})}" method="get" >
-			    <button type="submit">Aggiungi fiore</button>
-			</form>
+
 		    <li th:each="fioreDelMazzo : ${mazzo.fioriDelMazzo}">
 				<h1 th:text="${fioreDelMazzo.nome_fiore}"></h1>
 				<p>Descrizione: <span th:text="${fioreDelMazzo.descrizione_fiore}"></span></p>
@@ -48,6 +46,37 @@
 
 		    </li>
 		</ul>
+		<ul> <h2>accessorio del mazzo</h2>
+
+		    <li th:each="accessorioDelMazzo : ${mazzo.accessoriDelMazzo}">
+				<h1 th:text="${accessorioDelMazzo.nome_fiore}"></h1>
+				<p>Descrizione: <span th:text="${accessorioDelMazzo.descrizione_fiore}"></span></p>
+				<p>Archiviato: <span th:text="${accessorioDelMazzo.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
+
+		    </li>
+		</ul>
     </div>
+	<h1>Gestione di tutti gli accessori</h1>
+	<ul>
+	    <li th:each="accessorio : ${tutti_accessori}">
+	        <a th:href="@{/admin/PaginaModificaAccessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
+			<form th:action="@{/admin/pagina_aggiungiFiorialMazzo/{mazzoId}(mazzoId=${mazzo.id})}" method="get" >
+			    <button type="submit">Aggiungi accessorio</button>
+			</form>
+	    </li>
+	</ul>
+	<a href="/admin/pagina_aggiungiAccessorio">Crea Nuovo Accessorio</a>
+	<h1>Gestione di tutti i fiori</h1>
+	<ul>
+	    <li th:each="fiore : ${tutti_fiori}">
+	        <a th:href="@{/admin/PaginaModificaFiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
+  		<form th:action="@{/admin/aggiungiFioreAlMazzo/{fioreId}(fioreId=${fiore.id})}" method="post">
+			<input type="hidden" th:name="mazzoId" th:value="${mazzo.id}" />
+			 
+	   <button type="submit">Aggiungi fiore</button>
+			</form>
+	    </li>
+	</ul>
+	<a href="/admin/pagina_aggiungiFiore">Crea Nuovo Fiore</a>
 </body>
 </html>

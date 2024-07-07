@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.project.model.Mazzo;
 import it.project.model.User;
+import it.project.service.AccessorioService;
 import it.project.service.FioreService;
 import it.project.service.MazzoService;
 import it.project.utils.FileUploadUtil;
@@ -33,6 +34,10 @@ public class MazzoController {
     
     @Autowired
     private FioreService fioreService ;
+    
+
+    @Autowired
+    private AccessorioService accessorioService;
     
     /**
      * Metodo per visualizzare la pagina di un singolo mazzo.
@@ -61,6 +66,9 @@ public class MazzoController {
     private String PaginaModificaMazzo(@PathVariable("id") Long mazzoId, @ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("utente", utente);
         model.addAttribute("mazzo", this.mazzoService.getMazzoById(mazzoId));
+        model.addAttribute("tutti_accessori", accessorioService.getAllAccessori());
+        model.addAttribute("tutti_fiori", fioreService.getAllFiori());
+
         return "admin/pagine_mazzo_amministratore/PaginaModificaMazzo.html";
     }
     
@@ -130,20 +138,7 @@ public class MazzoController {
     }
     
     
-    /**
-     * Metodo per visualizzare la pagina di aggiunta di fiori al mazzo corrente (solo per amministratori).
-     * 
-     * @param utente Oggetto utente da associare al modello.
-     * @param model  Oggetto Model per passare attributi alla vista.
-     * @return Il nome del template HTML per l'aggiunta di un mazzo.
-     */
-    @GetMapping("/admin/pagina_aggiungiFiorialMazzo/{mazzoId}")
-    private String PaginaAggiungiFiorialMazzo(@ModelAttribute("utente") User utente,@PathVariable("mazzoId") Long mazzoId, Model model) {
-        model.addAttribute("utente", utente);
-        model.addAttribute("mazzo", mazzoService.getMazzoById(mazzoId));
-        model.addAttribute("fiori", fioreService.getAllFiori());
-        return "admin/pagine_mazzo_amministratore/PaginaAggiungiFiorialMazzo.html";
-    }
+
     
     /**
      * Metodo per aggiungere un fiore al mazzo al sistema.
@@ -154,7 +149,7 @@ public class MazzoController {
      * @return Redirect alla pagina di modifica del mazzo appena aggiunto.
      */
     @PostMapping("/admin/aggiungiFioreAlMazzo/{fioreId}")
-    private String AggiungiFiorialMazzo( @PathVariable("mazzoId") Long mazzoId,@PathVariable("fioreId") Long fioreId, @ModelAttribute("utente") User utente, Model model)  {
+    private String AggiungiFiorialMazzo( @RequestParam Long mazzoId,@PathVariable("fioreId") Long fioreId, @ModelAttribute("utente") User utente, Model model)  {
         Mazzo mazzo = mazzoService.getMazzoById(mazzoId);         
         mazzo.getFioriDelMazzo().add(fioreService.getFioreById(fioreId));
         mazzoService.saveMazzo(mazzo);

@@ -28,6 +28,8 @@ public class Mazzo {
 	
 	private Boolean archiviato_mazzo;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Accessorio> accessoriDelMazzo = new ArrayList<>();
 	
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Fiore> fioriDelMazzo = new ArrayList<>();
@@ -106,6 +108,36 @@ public class Mazzo {
 	 */
 	public void setArchiviato_mazzo(Boolean archiviato_mazzo) {
 		this.archiviato_mazzo = archiviato_mazzo;
+	}
+
+	
+	
+	/**
+	 * @return the accessoriDelMazzo
+	 */
+	public List<Accessorio> getAccessoriDelMazzo() {
+		return accessoriDelMazzo;
+	}
+
+	/**
+	 * @param accessoriDelMazzo the accessoriDelMazzo to set
+	 */
+	public void setAccessoriDelMazzo(List<Accessorio> accessoriDelMazzo) {
+		this.accessoriDelMazzo = accessoriDelMazzo;
+	}
+
+	/**
+	 * @return the eventi
+	 */
+	public List<Evento> getEventi() {
+		return eventi;
+	}
+
+	/**
+	 * @param eventi the eventi to set
+	 */
+	public void setEventi(List<Evento> eventi) {
+		this.eventi = eventi;
 	}
 
 	/**

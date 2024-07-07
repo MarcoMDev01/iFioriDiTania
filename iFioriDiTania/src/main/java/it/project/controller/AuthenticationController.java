@@ -49,7 +49,7 @@ public class AuthenticationController {
 	}
 
 	
-
+/*
 	@GetMapping(value = "/")
 	public String index(Model model) {
 	    // Ottiene l'oggetto Authentication dalla SecurityContextHolder
@@ -76,13 +76,13 @@ public class AuthenticationController {
 	    }
 
 	}
-	
+	*/
 	/** 
 	 * se trova un utente oauth controlla se è salvato altrimenti lo memorizza  
 	 * @param authentication
 	 * @return direziona verso il metodo index, esso gestira' se l'utente è admin o meno 
 	 * 
-	 * */
+	 * *//*
 	@GetMapping("/success")
 	public String defaultAfterLogin(Authentication authentication) {
 		
@@ -101,14 +101,14 @@ public class AuthenticationController {
 		  
 	    return "redirect:/"; // Redirezione di default
 	}
-
+*/
  
     /**
      * Metodo per gestire la home page dopo il login.
      * 
      * @param model il modello della vista
      * @return il nome della vista della home page
-     
+     */
     @GetMapping(value = "/")
     public String index(Model model) {
         // Ottiene l'oggetto Authentication dalla SecurityContextHolder
@@ -170,7 +170,7 @@ public class AuthenticationController {
      * 
      * @param authentication l'oggetto di autenticazione
      * @return la redirezione alla vista appropriata
-     
+     */
     @GetMapping("/success")
     public String defaultAfterLogin(Authentication authentication) {
         if (authentication.getPrincipal() instanceof DefaultOidcUser) {
@@ -199,7 +199,7 @@ public class AuthenticationController {
         }
         return "redirect:/"; // Redirezione di default
     }
-*/
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

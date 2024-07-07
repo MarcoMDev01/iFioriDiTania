@@ -7,7 +7,7 @@
     <h1>Gestione di tutte le recensioni</h1>
     <ul>
         <li th:each="recensione : ${tutte_recensioni}">
-            <a th:href="@{/admin/PaginaModificaRecensione/{id}(id=${recensione.id})}" th:text="${recensione.nome_recensione}"></a>
+            <a th:href="@{/admin/PaginaModificaRecensione/{id}(id=${recensione.id})}" th:text="${recensione.descrizione_recensione}"></a>
             <form th:action="@{/admin/rimuoviRecensione/{id}(id=${recensione.id})}" method="post">
                 <input type="hidden" name="_method" value="delete" />
                 <button type="submit">ELIMINA</button>

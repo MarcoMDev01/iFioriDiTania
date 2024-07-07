@@ -6,17 +6,14 @@
 <body>
     <h1>Aggiungi Nuova Recensione</h1>
     <form th:action="@{/admin/aggiungiRecensione}" th:object="${recensione}" method="post" enctype="multipart/form-data">
-        <div>
-            <label>Nome:</label>
-            <input type="text" th:field="*{nome_recensione}" />
-        </div>
+
         <div>
             <label>Descrizione:</label>
             <textarea th:field="*{descrizione_recensione}"></textarea>
         </div>
         <div>
             <label>Archiviato:</label>
-            <input type="checkbox" th:field="*{archiviato_recensione}" />
+            <input type="checkbox" th:field="*{approvazione}" />
         </div>
 		<label for="image">Choose image to upload</label>
 		 <input type="file" name="image" accept="image/*" required>

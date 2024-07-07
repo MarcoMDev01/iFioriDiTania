@@ -52,12 +52,12 @@ public class UtenteController {
     /**
      * Metodo per ottenere un utente specifico.
      * 
-     * @param cuocoId l'ID dell'utente
+     * @param utente l'ID dell'utente
      * @param model il modello della vista
      * @return il nome della vista che mostra l'utente
      */
     @GetMapping("/utente/{utenteId}")
-    public String getCuoco(@PathVariable("utenteId") Long utenteId, Model model) {
+    public String getUtente(@PathVariable("utenteId") Long utenteId, Model model) {
         model.addAttribute("utente", userService.getUserById(utenteId));
         return "utente.html";
     }

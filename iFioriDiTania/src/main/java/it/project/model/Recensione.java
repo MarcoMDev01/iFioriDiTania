@@ -29,7 +29,7 @@ public class Recensione {
 	@ManyToOne
 	private User utente_Recensione ;
 	
-	private String approvazione;
+	private Boolean approvazione;
 
 	/**
 	 * @return the id
@@ -104,14 +104,14 @@ public class Recensione {
 	/**
 	 * @return the approvazione
 	 */
-	public String getApprovazione() {
+	public Boolean getApprovazione() {
 		return approvazione;
 	}
 
 	/**
 	 * @param approvazione the approvazione to set
 	 */
-	public void setApprovazione(String approvazione) {
+	public void setApprovazione(Boolean approvazione) {
 		this.approvazione = approvazione;
 	}
 

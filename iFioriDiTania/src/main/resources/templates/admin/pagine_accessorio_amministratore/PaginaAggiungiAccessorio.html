@@ -6,7 +6,8 @@
 <body>
     <h1>Aggiungi Nuovo Accessorio</h1>
     <form th:action="@{/admin/aggiungiAccessorio}" th:object="${accessorio}" method="post" enctype="multipart/form-data">
-        <div>
+        
+		<div>
             <label>Nome:</label>
             <input type="text" th:field="*{nome_accessorio}" />
         </div>

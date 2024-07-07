@@ -4,7 +4,7 @@
     <title>Dettagli Mazzo</title>
 </head>
 <body>
-    <h1 th:text="'Dettagli del mazzo: ' + ${mazzo.nome_mazzo}"></h1>
+    <h1 th:text=" ${mazzo.nome_mazzo}"></h1>
     <p>Descrizione: <span th:text="${mazzo.descrizione_mazzo}"></span></p>
     <p>Archiviato: <span th:text="${mazzo.archiviato_mazzo} ? 'Sì' : 'No'"></span></p>
     <div>

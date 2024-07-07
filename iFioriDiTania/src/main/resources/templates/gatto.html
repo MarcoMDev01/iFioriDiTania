@@ -4,7 +4,7 @@
     <title>Dettagli Gatto</title>
 </head>
 <body>
-    <h1 th:text="'Dettagli del gatto: ' + ${gatto.nome_gatto}"></h1>
+    <h1 th:text="  ${gatto.nome_gatto}"></h1>
     <p>Descrizione: <span th:text="${gatto.descrizione_gatto}"></span></p>
     <p>Archiviato: <span th:text="${gatto.archiviato_gatto} ? 'Sì' : 'No'"></span></p>
     <div>

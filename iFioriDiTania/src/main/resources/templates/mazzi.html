@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Tutti i Gatti</title>
+    <title>Tutti i Mazzi</title>
 </head>
 <body>
-    <h1>Elenco di tutti i gatti</h1>
+    <h1>Elenco di tutti i Mazzi</h1>
     <ul>
-        <li th:each="gatto : ${tutti_gatti}">
-            <a th:href="@{/gatto/{id}(id=${gatto.id})}" th:text="${gatto.nome_gatto}"></a>
+        <li th:each="mazzo : ${tutti_mazzi}">
+            <a th:href="@{/mazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
         </li>
     </ul>
 </body>

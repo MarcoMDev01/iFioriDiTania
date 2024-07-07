@@ -4,7 +4,7 @@
     <title>Dettagli Fiore</title>
 </head>
 <body>
-    <h1 th:text="'Dettagli del fiore: ' + ${fiore.nome_fiore}"></h1>
+    <h1 th:text=" ${fiore.nome_fiore}"></h1>
     <p>Descrizione: <span th:text="${fiore.descrizione_fiore}"></span></p>
     <p>Archiviato: <span th:text="${fiore.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
     <div>

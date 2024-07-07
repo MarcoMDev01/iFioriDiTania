@@ -4,9 +4,9 @@
     <title>Dettagli Recensione</title>
 </head>
 <body>
-    <h1 th:text="'Dettagli della recensione: ' + ${recensione.nome_recensione}"></h1>
+
     <p>Descrizione: <span th:text="${recensione.descrizione_recensione}"></span></p>
-    <p>Archiviato: <span th:text="${recensione.archiviato_recensione} ? 'Sì' : 'No'"></span></p>
+    <p>Archiviato: <span th:text="${recensione.approvazione} ? 'Sì' : 'No'"></span></p>
     <div>
         <h3>Foto</h3>
         <ul>

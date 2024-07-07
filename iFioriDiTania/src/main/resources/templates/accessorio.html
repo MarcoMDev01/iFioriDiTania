@@ -4,7 +4,7 @@
     <title>Dettagli Accessorio</title>
 </head>
 <body>
-    <h1 th:text="'Dettagli dell'accessorio: ' + ${accessorio.nome_accessorio}"></h1>
+    <h1 th:text=" ${accessorio.nome_accessorio}"></h1>
     <p>Descrizione: <span th:text="${accessorio.descrizione_accessorio}"></span></p>
     <p>Archiviato: <span th:text="${accessorio.archiviato_accessorio} ? 'Sì' : 'No'"></span></p>
     <div>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Fiore</title>
+</head>
+<body>
+    <h1 th:text="'Dettagli del fiore: ' + ${fiore.nome_fiore}"></h1>
+    <p>Descrizione: <span th:text="${fiore.descrizione_fiore}"></span></p>
+    <p>Archiviato: <span th:text="${fiore.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
+    <div>
+        <h3>Foto</h3>
+        <ul>
+            <li th:each="foto : ${fiore.foto_fiore}">
+                <img th:src="@{/images/foto_fiori/{foto}(foto=${foto})}" alt="Foto Fiore"/>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

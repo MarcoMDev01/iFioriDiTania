@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tutti gli Accessori</title>
+</head>
+<body>
+    <h1>Elenco di tutti gli accessori</h1>
+    <ul>
+        <li th:each="accessorio : ${tutti_accessori}">
+            <a th:href="@{/accessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
+        </li>
+    </ul>
+</body>
+</html>

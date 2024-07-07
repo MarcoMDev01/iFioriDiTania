@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Accessorio</title>
+</head>
+<body>
+    <h1 th:text="'Dettagli dell'accessorio: ' + ${accessorio.nome_accessorio}"></h1>
+    <p>Descrizione: <span th:text="${accessorio.descrizione_accessorio}"></span></p>
+    <p>Archiviato: <span th:text="${accessorio.archiviato_accessorio} ? 'Sì' : 'No'"></span></p>
+    <div>
+        <h3>Foto</h3>
+        <ul>
+            <li th:each="foto : ${accessorio.foto_accessorio}">
+                <img th:src="@{/images/foto_accessori/{foto}(foto=${foto})}" alt="Foto Accessorio"/>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

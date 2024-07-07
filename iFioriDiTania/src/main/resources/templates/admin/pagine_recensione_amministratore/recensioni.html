@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Amministrazione - Tutte le Recensioni</title>
+</head>
+<body>
+    <h1>Gestione di tutte le recensioni</h1>
+    <ul>
+        <li th:each="recensione : ${tutte_recensioni}">
+            <a th:href="@{/admin/PaginaModificaRecensione/{id}(id=${recensione.id})}" th:text="${recensione.nome_recensione}"></a>
+            <form th:action="@{/admin/rimuoviRecensione/{id}(id=${recensione.id})}" method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit">ELIMINA</button>
+            </form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiRecensione">Aggiungi Nuova Recensione</a>
+</body>
+</html>

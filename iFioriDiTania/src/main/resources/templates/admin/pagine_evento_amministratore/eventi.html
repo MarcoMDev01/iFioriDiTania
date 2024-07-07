@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Amministrazione - Tutti gli Eventi</title>
+</head>
+<body>
+    <h1>Gestione di tutti gli eventi</h1>
+    <ul>
+        <li th:each="evento : ${tutti_eventi}">
+            <a th:href="@{/admin/PaginaModificaEvento/{id}(id=${evento.id})}" th:text="${evento.nome_evento}"></a>
+			<form th:action="@{/admin/rimuoviEvento/{id}(id=${evento.id})}" method="post">
+			    <input type="hidden" name="_method" value="delete" />
+			    <button type="submit">ELIMINA</button>
+			</form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiEvento">Aggiungi Nuovo Evento</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Amministrazione - Tutti i Servizi</title>
+</head>
+<body>
+    <h1>Gestione di tutti i servizi</h1>
+    <ul>
+        <li th:each="servizio : ${tutti_servizi}">
+            <a th:href="@{/admin/PaginaModificaServizio/{id}(id=${servizio.id})}" th:text="${servizio.nome_servizio}"></a>
+			<form th:action="@{/admin/rimuoviServizio/{id}(id=${servizio.id})}" method="post">
+			    <input type="hidden" name="_method" value="delete" />
+			    <button type="submit">ELIMINA</button>
+			</form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiServizio">Aggiungi Nuovo Servizio</a>
+</body>
+</html>

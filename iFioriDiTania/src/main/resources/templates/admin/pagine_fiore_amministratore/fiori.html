@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Amministrazione - Tutti i Fiori</title>
+</head>
+<body>
+    <h1>Gestione di tutti i fiori</h1>
+    <ul>
+        <li th:each="fiore : ${tutti_fiori}">
+            <a th:href="@{/admin/PaginaModificaFiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
+			<form th:action="@{/admin/rimuoviFiore/{id}(id=${fiore.id})}" method="post">
+			    <input type="hidden" name="_method" value="delete" />
+			    <button type="submit">ELIMINA</button>
+			</form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiFiore">Aggiungi Nuovo Fiore</a>
+</body>
+</html>

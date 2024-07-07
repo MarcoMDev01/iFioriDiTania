@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tutti gli Utenti</title>
+</head>
+<body>
+    <h1>Elenco di tutti gli utenti</h1>
+    <ul>
+        <li th:each="utente : ${tutti_utenti}">
+            <a th:href="@{/utente/{id}(id=${utente.id})}" th:text="${utente.name}"></a>
+        </li>
+    </ul>
+</body>
+</html>

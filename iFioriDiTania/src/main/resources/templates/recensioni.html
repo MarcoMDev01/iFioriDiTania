@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tutte le Recensioni</title>
+</head>
+<body>
+    <h1>Elenco di tutte le recensioni</h1>
+    <ul>
+        <li th:each="recensione : ${tutte_recensioni}">
+            <a th:href="@{/recensione/{id}(id=${recensione.id})}" th:text="${recensione.nome_recensione}"></a>
+        </li>
+    </ul>
+</body>
+</html>

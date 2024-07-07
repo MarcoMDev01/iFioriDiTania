@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Amministrazione - Tutti i Mazzi</title>
+</head>
+<body>
+    <h1>Gestione di tutti i mazzi</h1>
+    <ul>
+        <li th:each="mazzo : ${tutti_mazzi}">
+            <a th:href="@{/admin/PaginaModificaMazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
+			<form th:action="@{/admin/rimuoviMazzo/{id}(id=${mazzo.id})}" method="post">
+			    <input type="hidden" name="_method" value="delete" />
+			    <button type="submit">ELIMINA</button>
+			</form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiMazzo">Aggiungi Nuovo Mazzo</a>
+</body>
+</html>

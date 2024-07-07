@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Gatto</title>
+</head>
+<body>
+    <h1 th:text="'Dettagli del gatto: ' + ${gatto.nome_gatto}"></h1>
+    <p>Descrizione: <span th:text="${gatto.descrizione_gatto}"></span></p>
+    <p>Archiviato: <span th:text="${gatto.archiviato_gatto} ? 'Sì' : 'No'"></span></p>
+    <div>
+        <h3>Foto</h3>
+		<ul>
+		           <li th:each="foto : ${gatto.foto_gatto}">
+		               <img th:src="@{/images/foto_gatti/{foto}(foto=${foto})}" alt="Foto Gatto"/>
+		           </li>
+		       </ul>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aggiungi Mazzo</title>
+</head>
+<body>
+    <h1>Aggiungi Nuovo Mazzo</h1>
+    <form th:action="@{/admin/aggiungiMazzo}" th:object="${mazzo}" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome_mazzo}" />
+        </div>
+        <div>
+            <label>Descrizione:</label>
+            <textarea th:field="*{descrizione_mazzo}"></textarea>
+        </div>
+        <div>
+            <label>Archiviato:</label>
+            <input type="checkbox" th:field="*{archiviato_mazzo}" />
+        </div>
+		<label for="image">Choose image to upload</label>
+		 <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Aggiungi</button>
+    </form>
+</body>
+</html>

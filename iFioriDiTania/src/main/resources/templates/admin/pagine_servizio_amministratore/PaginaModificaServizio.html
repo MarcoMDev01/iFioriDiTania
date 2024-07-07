@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica Servizio</title>
+</head>
+<body>
+    <h1>Modifica Servizio</h1>
+    <form th:action="@{/admin/PaginaModificaServizio/modifica}" th:object="${servizio}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome_servizio}" />
+        </div>
+        <div>
+            <label>Descrizione:</label>
+            <textarea th:field="*{descrizione_servizio}"></textarea>
+        </div>
+        <div>
+            <label>Archiviato:</label>
+            <input type="checkbox" th:field="*{archiviato_servizio}" />
+        </div>
+        <button type="submit">Salva</button>
+    </form>
+    <div>
+        <h3>Foto</h3>
+			<form th:action="@{/admin/ServiziosavePhoto/{servizioId}(servizioId=${servizio.id})}" method="post"  enctype="multipart/form-data">
+				<label for="image">Choose image to upload</label>
+				<input type="file" name="image" accept="image/*" required>
+			 	<button type="submit">Aggiungi Foto</button>
+		    </form>
+        <ul>
+            <li th:each="foto : ${servizio.foto_servizio}">
+                <img th:src="@{/images/foto_servizi/{foto}(foto=${foto})}" alt="Foto Servizio"/>
+				<form th:action="@{'/admin/servizio/removePhoto/' + *{id}}" method="post">
+				                   <input type="hidden" name="image" th:value="${foto}">
+				                   <button type="submit">Rimuovi Foto</button>
+				               </form>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

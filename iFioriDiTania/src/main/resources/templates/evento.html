@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Evento</title>
+</head>
+<body>
+    <h1 th:text="'Dettagli dell'evento: ' + ${evento.nome_evento}"></h1>
+    <p>Descrizione: <span th:text="${evento.descrizione_evento}"></span></p>
+    <p>Archiviato: <span th:text="${evento.archiviato_evento} ? 'Sì' : 'No'"></span></p>
+    <div>
+        <h3>Foto</h3>
+        <ul>
+            <li th:each="foto : ${evento.foto_evento}">
+                <img th:src="@{/images/foto_eventi/{foto}(foto=${foto})}" alt="Foto Evento"/>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

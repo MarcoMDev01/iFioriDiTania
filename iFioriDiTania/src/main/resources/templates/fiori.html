@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tutti i Fiori</title>
+</head>
+<body>
+    <h1>Elenco di tutti i fiori</h1>
+    <ul>
+        <li th:each="fiore : ${tutti_fiori}">
+            <a th:href="@{/fiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <header>
+        <div th:if="${#authentication.principal instanceof T(org.springframework.security.oauth2.core.oidc.user.OidcUser)}">
+            Benvenuto, <span th:text="${#authentication.principal.fullName}">Utente</span>
+                    <a  href="/logout">Logout</a>
+            
+        </div>
+        <div th:if="${#authentication.principal instanceof T(org.springframework.security.core.userdetails.UserDetails)}">
+            Benvenuto, <span th:text="${#authentication.principal.username}">Utente</span>
+                    <a  href="/logout">Logout</a>
+            
+        </div>
+        
+        <div th:unless="${#authentication.principal instanceof T(org.springframework.security.oauth2.core.oidc.user.OidcUser)}" ||"${#authentication.principal instanceof T(org.springframework.security.core.userdetails.UserDetails)}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+</body>
+
+</html>
+	

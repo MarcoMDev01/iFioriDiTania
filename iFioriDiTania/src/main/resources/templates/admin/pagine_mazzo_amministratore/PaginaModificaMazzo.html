@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica Mazzo</title>
+</head>
+<body>
+    <h1>Modifica Mazzo</h1>
+    <form th:action="@{/admin/PaginaModificaMazzo/modifica}" th:object="${mazzo}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome_mazzo}" />
+        </div>
+        <div>
+            <label>Descrizione:</label>
+            <textarea th:field="*{descrizione_mazzo}"></textarea>
+        </div>
+        <div>
+            <label>Archiviato:</label>
+            <input type="checkbox" th:field="*{archiviato_mazzo}" />
+        </div>
+        <button type="submit">Salva</button>
+    </form>
+    <div>
+        <h3>Foto</h3>
+        <form th:action="@{/admin/MazzosavePhoto/{mazzoId}(mazzoId=${mazzo.id})}" method="post" enctype="multipart/form-data">
+            <label for="image">Choose image to upload</label>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Aggiungi Foto</button>
+        </form>
+        <ul>
+            <li th:each="foto : ${mazzo.foto_mazzo}">
+                <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
+                <form th:action="@{'/admin/mazzo/removePhoto/' + *{id}}" method="post">
+                    <input type="hidden" name="image" th:value="${foto}">
+                    <button type="submit">Rimuovi Foto</button>
+                </form>
+            </li>
+        </ul>
+		<ul> <h2>fiori del mazzo</h2>
+			<form th:action="@{/admin/pagina_aggiungiFiorialMazzo/{mazzoId}(mazzoId=${mazzo.id})}" method="get" >
+			    <button type="submit">Aggiungi fiore</button>
+			</form>
+		    <li th:each="fioreDelMazzo : ${mazzo.fioriDelMazzo}">
+				<h1 th:text="${fioreDelMazzo.nome_fiore}"></h1>
+				<p>Descrizione: <span th:text="${fioreDelMazzo.descrizione_fiore}"></span></p>
+				<p>Archiviato: <span th:text="${fioreDelMazzo.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
+
+		    </li>
+		</ul>
+    </div>
+</body>
+</html>

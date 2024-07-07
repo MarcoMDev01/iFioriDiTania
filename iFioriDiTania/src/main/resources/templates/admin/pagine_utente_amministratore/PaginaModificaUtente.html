@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica Utente</title>
+</head>
+<body>
+    <h1>Modifica Utente</h1>
+    <form th:action="@{/admin/PaginaModificaUtente/modifica}" th:object="${utente}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome_utente}" />
+        </div>
+        <div>
+            <label>Descrizione:</label>
+            <textarea th:field="*{descrizione_utente}"></textarea>
+        </div>
+        <div>
+            <label>Archiviato:</label>
+            <input type="checkbox" th:field="*{archiviato_utente}" />
+        </div>
+        <button type="submit">Salva</button>
+    </form>
+    <div>
+        <h3>Foto</h3>
+        <form th:action="@{/admin/UtentesavePhoto/{utenteId}(utenteId=${utente.id})}" method="post" enctype="multipart/form-data">
+            <label for="image">Choose image to upload</label>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Aggiungi Foto</button>
+        </form>
+        <ul>
+            <li th:each="foto : ${utente.foto_utente}">
+                <img th:src="@{/images/foto_utenti/{foto}(foto=${foto})}" alt="Foto Utente"/>
+                <form th:action="@{'/admin/utente/removePhoto/' + *{id}}" method="post">
+                    <input type="hidden" name="image" th:value="${foto}">
+                    <button type="submit">Rimuovi Foto</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

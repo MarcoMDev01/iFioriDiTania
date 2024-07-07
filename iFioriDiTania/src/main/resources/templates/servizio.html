@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Servizio</title>
+</head>
+<body>
+    <h1 th:text="'Dettagli del servizio: ' + ${servizio.nome_servizio}"></h1>
+    <p>Descrizione: <span th:text="${servizio.descrizione_servizio}"></span></p>
+    <p>Archiviato: <span th:text="${servizio.archiviato_servizio} ? 'Sì' : 'No'"></span></p>
+    <div>
+        <h3>Foto</h3>
+        <ul>
+            <li th:each="foto : ${servizio.foto_servizio}">
+                <img th:src="@{/images/foto_servizi/{foto}(foto=${foto})}" alt="Foto Servizio"/>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -317,7 +317,7 @@ public class EventoController {
     public String adminGetAllEventi(@ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("tutti_eventi", eventoService.getAllEventi());
         model.addAttribute("utente", utente);
-        return "admin/eventi.html";
+        return "admin/pagine_evento_amministratore/eventi.html";
     }
 
     /**

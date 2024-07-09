@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,8 +30,26 @@ public class Accessorio {
 	@Column(length = 64)
 	private List<String> foto_accessorio = new ArrayList<>();
 
-	
-    @ManyToMany(mappedBy = "accessori_evento")
+    @ManyToMany(mappedBy = "accessoriDelMazzo", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Mazzo> mazziDelAccessorio= new ArrayList<>();
+    
+    /**
+	 * @return the mazziDelAccessorio
+	 */
+	public List<Mazzo> getMazziDelAccessorio() {
+		return mazziDelAccessorio;
+	}
+
+
+	/**
+	 * @param mazziDelAccessorio the mazziDelAccessorio to set
+	 */
+	public void setMazziDelAccessorio(List<Mazzo> mazziDelAccessorio) {
+		this.mazziDelAccessorio = mazziDelAccessorio;
+	}
+
+
+	@ManyToMany(mappedBy = "accessori_evento")
     private List<Evento> eventi = new ArrayList<>();
 
 

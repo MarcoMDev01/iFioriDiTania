@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.project.model.Accessorio;
+import it.project.model.Mazzo;
 import it.project.repository.AccessorioRepository;
 import jakarta.transaction.Transactional;
 
@@ -15,7 +16,9 @@ public class AccessorioService {
     @Autowired
     AccessorioRepository accessorioRepository;
     
-    
+	@Autowired
+	MazzoService mazzoService;
+	
     @Transactional
     public void deleteById(Long id) {
         accessorioRepository.deleteById(id);
@@ -40,5 +43,18 @@ public class AccessorioService {
 
     public Iterable<Accessorio> getAllAccessori() {
         return accessorioRepository.findAll();
+    }
+    
+    @Transactional
+    public void deleteAccessorio(Long id) {
+        Optional<Accessorio> optionalAccessorio = accessorioRepository.findById(id);
+        if (optionalAccessorio.isPresent()) {
+        	Accessorio accessorio = optionalAccessorio.get();
+            for (Mazzo mazzo : accessorio.getMazziDelAccessorio()) {
+                mazzo.getAccessoriDelMazzo().remove(accessorio);
+                mazzoService.saveMazzo(mazzo);
+            }
+            accessorioRepository.delete(accessorio);
+        }
     }
 }

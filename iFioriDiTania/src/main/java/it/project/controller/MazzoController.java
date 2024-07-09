@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.project.model.Accessorio;
+import it.project.model.Fiore;
 import it.project.model.Mazzo;
 import it.project.model.User;
 import it.project.service.AccessorioService;
@@ -66,12 +68,16 @@ public class MazzoController {
     private String PaginaModificaMazzo(@PathVariable("id") Long mazzoId, @ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("utente", utente);
         model.addAttribute("mazzo", this.mazzoService.getMazzoById(mazzoId));
-        model.addAttribute("tutti_accessori", accessorioService.getAllAccessori());
-        model.addAttribute("tutti_fiori", fioreService.getAllFiori());
+   	 	List<Accessorio> TuttiAccessori= (List<Accessorio>) accessorioService.getAllAccessori();
+   	 	TuttiAccessori.removeAll(mazzoService.getMazzoById(mazzoId).getAccessoriDelMazzo());
+        model.addAttribute("tutti_accessori", TuttiAccessori);
+   	 	List<Fiore> TuttiFiori= (List<Fiore>) fioreService.getAllFiori();
+   	 	TuttiFiori.removeAll(mazzoService.getMazzoById(mazzoId).getFioriDelMazzo());
+        model.addAttribute("tutti_fiori", TuttiFiori);
 
         return "admin/pagine_mazzo_amministratore/PaginaModificaMazzo.html";
     }
-    
+
     /**
      * Metodo per aggiornare le informazioni di un mazzo esistente.
      * 
@@ -81,7 +87,7 @@ public class MazzoController {
      * @return Redirect alla pagina di modifica del mazzo.
      */
     @PostMapping("/admin/PaginaModificaMazzo/modifica")
-    public String modificaMazzo(@ModelAttribute("mazzo") Mazzo mazzo, BindingResult result, Model model) {
+    private String modificaMazzo(@ModelAttribute("mazzo") Mazzo mazzo, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("mazzo", mazzo);
             return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
@@ -157,7 +163,23 @@ public class MazzoController {
         model.addAttribute("mazzo", mazzo);
         return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
     }
-    
+    /**
+     * Metodo per aggiungere un fiore al mazzo al sistema.
+     * 
+     * @param mazzo         Oggetto Mazzo con le informazioni del nuovo mazzo.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica del mazzo appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiAccessorioAlMazzo/{accessorioId}")
+    private String AggiungiAccessorialMazzo( @RequestParam Long mazzoId,@PathVariable("accessorioId") Long accessorioId, @ModelAttribute("utente") User utente, Model model)  {
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);         
+        mazzo.getAccessoriDelMazzo().add(accessorioService.getAccessorioById(accessorioId));
+        mazzoService.saveMazzo(mazzo);
+        model.addAttribute("utente", utente);
+        model.addAttribute("mazzo", mazzo);
+        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
+    }
     
     
     /**
@@ -171,7 +193,7 @@ public class MazzoController {
      * @throws IOException In caso di errori durante il salvataggio del file.
      */
     @PostMapping("/admin/MazzosavePhoto/{mazzoId}")
-    public String saveMazzoPhoto(@RequestParam("image") MultipartFile multipartFile, @PathVariable("mazzoId") Long mazzoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
+    private String saveMazzoPhoto(@RequestParam("image") MultipartFile multipartFile, @PathVariable("mazzoId") Long mazzoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
         Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         mazzo.getFoto_mazzo().add(fileName);
@@ -193,7 +215,7 @@ public class MazzoController {
      * @throws IOException In caso di errori durante l'eliminazione del file.
      */
     @PostMapping("/admin/mazzo/removePhoto/{mazzoId}")
-    public String removeMazzoPhoto(@RequestParam("image") String imageName, @PathVariable("mazzoId") Long mazzoId, Model model) throws IOException {
+    private String removeMazzoPhoto(@RequestParam("image") String imageName, @PathVariable("mazzoId") Long mazzoId, Model model) throws IOException {
         Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
         if (mazzo != null) {
             mazzo.getFoto_mazzo().remove(imageName);
@@ -213,7 +235,7 @@ public class MazzoController {
      * @return Il nome del template HTML per la lista di tutti i mazzi.
      */
     @GetMapping("/mazzi")
-    public String getAllMazzi(@ModelAttribute("utente") User utente, Model model) {
+    private String getAllMazzi(@ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("tutti_mazzi", mazzoService.getAllMazzi());
         model.addAttribute("utente", utente);
         return "mazzi.html";
@@ -227,7 +249,7 @@ public class MazzoController {
      * @return Il nome del template HTML per la lista di tutti i mazzi.
      */
     @GetMapping("/admin/mazzi")
-    public String AdminGetAllMazzi(@ModelAttribute("utente") User utente, Model model) {
+    private String AdminGetAllMazzi(@ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("tutti_mazzi", mazzoService.getAllMazzi());
         model.addAttribute("utente", utente);
         return "admin/pagine_mazzo_amministratore/mazzi.html";
@@ -243,7 +265,7 @@ public class MazzoController {
      * @throws IOException In caso di errori durante l'eliminazione dei file.
      */
     @PostMapping("/admin/rimuoviMazzo/{id}")
-    public String removeMazzo(@PathVariable("id") Long mazzoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
+    private String removeMazzo(@PathVariable("id") Long mazzoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
         Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
         List<String> fotoMazzo = mazzo.getFoto_mazzo();
         String uploadDir = "src/main/resources/static/images/foto_mazzi";
@@ -254,5 +276,25 @@ public class MazzoController {
         mazzoService.deleteById(mazzoId);
         model.addAttribute("utente", utente);
         return "redirect:/admin/mazzi";
+    }
+    
+    @PostMapping("/admin/mazzo/fiore/rimuovi/{fioreId}")
+    private String rimuoviFioreDalMazzo(Model model,@PathVariable("fioreId") Long fioreId, @RequestParam ("mazzoId") Long mazzoId){
+    	Mazzo mazzo= mazzoService.getMazzoById(mazzoId);
+    	Fiore fiore = fioreService.getFioreById(fioreId);
+
+    	mazzo.getFioriDelMazzo().remove(fiore);
+    	mazzoService.saveMazzo(mazzo);
+        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
+    	}
+    
+    @PostMapping("/admin/mazzo/accessorio/rimuovi/{accessorioId}")
+    private String rimuoviAccessorioDalMazzo(Model model, @PathVariable("accessorioId") Long accessorioId, @RequestParam("mazzoId") Long mazzoId) {
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
+        Accessorio accessorio = accessorioService.getAccessorioById(accessorioId);
+
+        mazzo.getAccessoriDelMazzo().remove(accessorio);
+        mazzoService.saveMazzo(mazzo);
+        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
     }
 }

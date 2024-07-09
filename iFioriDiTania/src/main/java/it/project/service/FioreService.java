@@ -17,6 +17,9 @@ public class FioreService {
 	@Autowired
 	FioreRepository fioreRepository;
 	
+	@Autowired
+	MazzoService mazzoService;
+	
 	
     @Transactional
     public void deleteById(Long id) {
@@ -54,8 +57,8 @@ public class FioreService {
             Fiore fiore = optionalFiore.get();
             for (Mazzo mazzo : fiore.getMazziDelFiore()) {
                 mazzo.getFioriDelMazzo().remove(fiore);
+                mazzoService.saveMazzo(mazzo);
             }
-            fiore.getMazziDelFiore().clear();
             fioreRepository.delete(fiore);
         }
     }

@@ -47,15 +47,9 @@ public class MazzoService {
 	
     @Transactional
     public void deleteMazzo(Long id) {
-        Optional<Mazzo> optionalMazzo = mazzoRepository.findById(id);
-        if (optionalMazzo.isPresent()) {
-            Mazzo mazzo = optionalMazzo.get();
-            for (Fiore fiore : mazzo.getFioriDelMazzo()) {
-                fiore.getMazziDelFiore().remove(mazzo);
-            }
-            mazzo.getFioriDelMazzo().clear();
-            mazzoRepository.delete(mazzo);
-        }
+
+            mazzoRepository.deleteById(id);
+        
     }
 
 }

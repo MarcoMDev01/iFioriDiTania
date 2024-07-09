@@ -216,7 +216,7 @@ public class AccessorioController {
             FileUploadUtil.deleteFile(uploadDir, foto);
         }
         
-        accessorioService.deleteById(accessorioId);
+        accessorioService.deleteAccessorio(accessorioId);
         model.addAttribute("utente", utente);
         return "redirect:/admin/accessori";
     }

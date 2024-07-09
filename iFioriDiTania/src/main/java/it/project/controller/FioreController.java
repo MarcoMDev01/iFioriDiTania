@@ -216,7 +216,7 @@ public class FioreController {
             FileUploadUtil.deleteFile(uploadDir, foto);
         }
         
-        fioreService.deleteById(fioreId);
+        fioreService.deleteFiore(fioreId);
         model.addAttribute("utente", utente);
         return "redirect:/admin/fiori";
     }

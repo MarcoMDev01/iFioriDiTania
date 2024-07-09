@@ -43,16 +43,22 @@
 				<h1 th:text="${fioreDelMazzo.nome_fiore}"></h1>
 				<p>Descrizione: <span th:text="${fioreDelMazzo.descrizione_fiore}"></span></p>
 				<p>Archiviato: <span th:text="${fioreDelMazzo.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
-
+				<form th:action="@{/admin/mazzo/fiore/rimuovi/{fioreId}(fioreId=${fioreDelMazzo.id})}" method="post">
+					<input type="hidden" th:name="mazzoId" th:value="${mazzo.id}" />
+					<button type="submit">rimuovi fiore</button>
+				</form>
 		    </li>
 		</ul>
 		<ul> <h2>accessorio del mazzo</h2>
 
 		    <li th:each="accessorioDelMazzo : ${mazzo.accessoriDelMazzo}">
-				<h1 th:text="${accessorioDelMazzo.nome_fiore}"></h1>
-				<p>Descrizione: <span th:text="${accessorioDelMazzo.descrizione_fiore}"></span></p>
-				<p>Archiviato: <span th:text="${accessorioDelMazzo.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
-
+				<h1 th:text="${accessorioDelMazzo.nome_accessorio}"></h1>
+				<p>Descrizione: <span th:text="${accessorioDelMazzo.descrizione_accessorio}"></span></p>
+				<p>Archiviato: <span th:text="${accessorioDelMazzo.archiviato_accessorio} ? 'Sì' : 'No'"></span></p>
+				<form th:action="@{/admin/mazzo/accessorio/rimuovi/{accessorioId}(accessorioId=${accessorioDelMazzo.id})}" method="post">
+					<input type="hidden" th:name="mazzoId" th:value="${mazzo.id}" />
+					<button type="submit">rimuovi accessorio</button>
+				</form>
 		    </li>
 		</ul>
     </div>
@@ -60,9 +66,11 @@
 	<ul>
 	    <li th:each="accessorio : ${tutti_accessori}">
 	        <a th:href="@{/admin/PaginaModificaAccessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
-			<form th:action="@{/admin/pagina_aggiungiFiorialMazzo/{mazzoId}(mazzoId=${mazzo.id})}" method="get" >
-			    <button type="submit">Aggiungi accessorio</button>
-			</form>
+			<form th:action="@{/admin/aggiungiAccessorioAlMazzo/{accessorioId}(accessorioId=${accessorio.id})}" method="post">
+				<input type="hidden" th:name="mazzoId" th:value="${mazzo.id}" />
+				 
+			<button type="submit">Aggiungi Accessorio</button>
+				</form>
 	    </li>
 	</ul>
 	<a href="/admin/pagina_aggiungiAccessorio">Crea Nuovo Accessorio</a>

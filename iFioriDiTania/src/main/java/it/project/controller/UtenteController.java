@@ -63,6 +63,35 @@ public class UtenteController {
     }
 
     /**
+     * Metodo per ottenere tutti gli utenti per l'amministratore.
+     * 
+     * @param model il modello della vista
+     * @return il nome della vista che mostra tutti gli utenti per l'amministratore
+     */
+    @RequestMapping(value = "/admin/all_user", method = RequestMethod.GET)
+    public String getAllUserAdmin(Model model) {
+        model.addAttribute("tutti_utenti", userService.getAllUsers());
+        return "admin/pagine_utente_amministratore/utenti.html";
+    }
+
+    /**
+     * Metodo per rimuovere un utente e le sue ricette per l'amministratore.
+     * 
+     * @param id l'ID dell'utente
+     * @param model il modello della vista
+     * @return il nome della vista che mostra tutti gli utenti per l'amministratore
+     */
+    @PostMapping("/admin/remove/user/{utenteid}")
+    public String removeUserAdmin(@PathVariable("utenteid") Long id, Model model) {
+        User user = userService.getUserById(id);
+
+        credentialsService.deleteByUser(user);
+        model.addAttribute("tutti_utenti", userService.getAllUsers());
+        return "admin/pagine_utente_amministratore/utenti.html";
+    }
+    //////////////////////////foto//////////////////////////
+    
+    /**
      * Metodo per salvare la foto del profilo di un utente.
      * 
      * @param multipartFile il file dell'immagine
@@ -112,31 +141,6 @@ public class UtenteController {
         return "index";
     }
 
-    /**
-     * Metodo per ottenere tutti gli utenti per l'amministratore.
-     * 
-     * @param model il modello della vista
-     * @return il nome della vista che mostra tutti gli utenti per l'amministratore
-     */
-    @RequestMapping(value = "/admin/all_user", method = RequestMethod.GET)
-    public String getAllUserAdmin(Model model) {
-        model.addAttribute("tutti_utenti", userService.getAllUsers());
-        return "admin/pagine_utente_amministratore/utenti.html";
-    }
+    
 
-    /**
-     * Metodo per rimuovere un utente e le sue ricette per l'amministratore.
-     * 
-     * @param id l'ID dell'utente
-     * @param model il modello della vista
-     * @return il nome della vista che mostra tutti gli utenti per l'amministratore
-     */
-    @PostMapping("/admin/remove/user/{utenteid}")
-    public String removeUserAdmin(@PathVariable("utenteid") Long id, Model model) {
-        User user = userService.getUserById(id);
-
-        credentialsService.deleteByUser(user);
-        model.addAttribute("tutti_utenti", userService.getAllUsers());
-        return "admin/pagine_utente_amministratore/utenti.html";
-    }
 }

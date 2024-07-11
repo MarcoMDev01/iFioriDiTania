@@ -23,8 +23,14 @@ import it.project.model.Mazzo;
 import it.project.model.Servizio;
 import it.project.model.Accessorio;
 import it.project.model.Recensione;
+import it.project.service.AccessorioService;
 import it.project.service.EventoService;
+import it.project.service.FioreService;
+import it.project.service.MazzoService;
+import it.project.service.RecensioneService;
+import it.project.service.ServizioService;
 import it.project.utils.FileUploadUtil;
+
 
 /**
  * Controller per la gestione delle operazioni sugli eventi.
@@ -32,9 +38,21 @@ import it.project.utils.FileUploadUtil;
  */
 @Controller
 public class EventoController {
+    
+	@Autowired
+	private ServizioService servizioService;
 
+	@Autowired
+    private AccessorioService accessorioService;
+	@Autowired
+    private MazzoService mazzoService;
+	@Autowired
+    private FioreService fioreService;
     @Autowired
     private EventoService eventoService;
+    @Autowired
+    private RecensioneService recensioneService;
+
     
     /**
      * Metodo per visualizzare la pagina di un singolo evento.
@@ -51,6 +69,20 @@ public class EventoController {
         return "evento.html";
     }
     
+    @GetMapping("/eventi")
+    public String getAllEventi(@ModelAttribute("utente") User utente, Model model) {
+        model.addAttribute("tutti_eventi", eventoService.getAllEventi());
+        model.addAttribute("utente", utente);
+        return "eventi.html";
+    }
+
+    @GetMapping("/admin/eventi")
+    public String adminGetAllEventi(@ModelAttribute("utente") User utente, Model model) {
+        model.addAttribute("tutti_eventi", eventoService.getAllEventi());
+        model.addAttribute("utente", utente);
+        return "admin/pagine_evento_amministratore/eventi.html";
+    }
+
     /**
      * Metodo per visualizzare la pagina di modifica di un evento (solo per amministratori).
      * 
@@ -61,10 +93,160 @@ public class EventoController {
      */
     @GetMapping("/admin/PaginaModificaEvento/{id}")
     private String PaginaModificaEvento(@PathVariable("id") Long eventoId, @ModelAttribute("utente") User utente, Model model) {
-        model.addAttribute("utente", utente);
-        model.addAttribute("evento", this.eventoService.getEventoById(eventoId));
+    	Evento evento= eventoService.getEventoById(eventoId);
+    	model.addAttribute("utente", utente);
+        model.addAttribute("evento",evento);
+        List<Fiore> fiori = (List<Fiore>) fioreService.getAllFiori();
+        fiori.removeAll(evento.getFiori_evento());
+        model.addAttribute("tutti_fiori", fiori);
+        List<Mazzo> mazzi = (List<Mazzo>) mazzoService.getAllMazzi();
+        mazzi.removeAll(evento.getMazzi_evento());
+        model.addAttribute("tutti_mazzi", mazzi);
+        List<Servizio> servizi = (List<Servizio>) servizioService.getAllServizi();
+        servizi.removeAll(evento.getServizi_evento());
+        model.addAttribute("tutti_servizi", servizi);
+        List<Accessorio> accessori = (List<Accessorio>) accessorioService.getAllAccessori();
+        accessori.removeAll(evento.getAccessori_evento());
+        model.addAttribute("tutti_accessori", accessori);
+
         return "admin/pagine_evento_amministratore/PaginaModificaEvento.html";
     }
+    
+    
+    //////////////////////aggiungere dati evento///////////////////////////
+    /**
+     * Metodo per aggiungere un fiore all'evento al sistema.
+     * 
+     * @param evento         Oggetto Evento con le informazioni del nuovo evento.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica dell'evento appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiFioreAllEvento/{fioreId}")
+    private String AggiungiFiorialEvento(@RequestParam Long eventoId, @PathVariable("fioreId") Long fioreId, @ModelAttribute("utente") User utente, Model model) {
+        Evento evento = eventoService.getEventoById(eventoId);         
+        evento.getFiori_evento().add(fioreService.getFioreById(fioreId));
+        eventoService.saveEvento(evento);
+        model.addAttribute("utente", utente);
+        model.addAttribute("evento", evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    /**
+     * Metodo per aggiungere un accessorio all'evento al sistema.
+     * 
+     * @param evento         Oggetto Evento con le informazioni del nuovo evento.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica dell'evento appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiAccessorioAllEvento/{accessorioId}")
+    private String AggiungiAccessorialEvento(@RequestParam Long eventoId, @PathVariable("accessorioId") Long accessorioId, @ModelAttribute("utente") User utente, Model model) {
+        Evento evento = eventoService.getEventoById(eventoId);         
+        evento.getAccessori_evento().add(accessorioService.getAccessorioById(accessorioId));
+        eventoService.saveEvento(evento);
+        model.addAttribute("utente", utente);
+        model.addAttribute("evento", evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    /**
+     * Metodo per aggiungere un mazzo all'evento al sistema.
+     * 
+     * @param evento         Oggetto Evento con le informazioni del nuovo evento.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica dell'evento appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiMazzoAllEvento/{mazzoId}")
+    private String AggiungiMazzoAllEvento(@RequestParam Long eventoId, @PathVariable("mazzoId") Long mazzoId, @ModelAttribute("utente") User utente, Model model) {
+        Evento evento = eventoService.getEventoById(eventoId);         
+        evento.getMazzi_evento().add(mazzoService.getMazzoById(mazzoId));
+        eventoService.saveEvento(evento);
+        model.addAttribute("utente", utente);
+        model.addAttribute("evento", evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    /**
+     * Metodo per aggiungere un servizio all'evento al sistema.
+     * 
+     * @param evento         Oggetto Evento con le informazioni del nuovo evento.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica dell'evento appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiServizioAllEvento/{servizioId}")
+    private String AggiungiServizioAllEvento(@RequestParam Long eventoId, @PathVariable("servizioId") Long servizioId, @ModelAttribute("utente") User utente, Model model) {
+        Evento evento = eventoService.getEventoById(eventoId);         
+        evento.getServizi_evento().add(servizioService.getServizioById(servizioId));
+        eventoService.saveEvento(evento);
+        model.addAttribute("utente", utente);
+        model.addAttribute("evento", evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    
+    ///////////////////////////////rimuovere dati evento /////////////////////////////
+    
+    
+    @PostMapping("/admin/evento/fiore/rimuovi/{fioreId}")
+    private String rimuoviFioreDalEvento(Model model, @PathVariable("fioreId") Long fioreId, @RequestParam("eventoId") Long eventoId) {
+        Evento evento = eventoService.getEventoById(eventoId);
+        Fiore fiore = fioreService.getFioreById(fioreId);
+
+        evento.getFiori_evento().remove(fiore);
+        eventoService.saveEvento(evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    @PostMapping("/admin/evento/accessorio/rimuovi/{accessorioId}")
+    private String rimuoviAccessorioDalEvento(Model model, @PathVariable("accessorioId") Long accessorioId, @RequestParam("eventoId") Long eventoId) {
+        Evento evento = eventoService.getEventoById(eventoId);
+        Accessorio accessorio = accessorioService.getAccessorioById(accessorioId);
+
+        evento.getAccessori_evento().remove(accessorio);
+        eventoService.saveEvento(evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    @PostMapping("/admin/evento/mazzo/rimuovi/{mazzoId}")
+    private String rimuoviMazzoDalEvento(Model model, @PathVariable("mazzoId") Long mazzoId, @RequestParam("eventoId") Long eventoId) {
+        Evento evento = eventoService.getEventoById(eventoId);
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
+
+        evento.getMazzi_evento().remove(mazzo);
+        eventoService.saveEvento(evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    @PostMapping("/admin/evento/servizio/rimuovi/{servizioId}")
+    private String rimuoviServizioDalEvento(Model model, @PathVariable("servizioId") Long servizioId, @RequestParam("eventoId") Long eventoId) {
+        Evento evento = eventoService.getEventoById(eventoId);
+        Servizio servizio = servizioService.getServizioById(servizioId);
+
+        evento.getServizi_evento().remove(servizio);
+        eventoService.saveEvento(evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    @PostMapping("/admin/evento/recensione/rimuovi/{recensioneId}")
+    private String rimuoviRecensioneDalEvento(Model model, @PathVariable("recensioneId") Long recensioneId, @RequestParam("eventoId") Long eventoId) {
+        Evento evento = eventoService.getEventoById(eventoId);
+        Recensione recensione = recensioneService.getRecensioneById(recensioneId);
+
+        evento.getRecensioni_evento().remove(recensione);
+        eventoService.saveEvento(evento);
+        return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
+    }
+
+    
+    
+    
+    
+    /////////////////////////////////getione pagine evento//////////////////////////////////////
+    
+    
     
     /**
      * Metodo per aggiornare le informazioni di un evento esistente.
@@ -130,6 +312,53 @@ public class EventoController {
         model.addAttribute("evento", evento);
         return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
     }
+
+
+
+    /**
+     * Metodo per rimuovere un evento dal sistema.
+     * 
+     * @param eventoId ID del evento da rimuovere.
+     * @param utente   Oggetto utente da associare al modello.
+     * @param model    Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina con la lista di tutti gli eventi.
+     * @throws IOException In caso di errori durante l'eliminazione dei file.
+     */
+	@PostMapping("/admin/rimuoviEvento/{id}")
+    public String removeEvento(@PathVariable("id") Long eventoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
+        Evento evento = eventoService.getEventoById(eventoId);
+    	List<Fiore> fiori_evento= evento.getFiori_evento();
+    	List<Mazzo> mazzi_evento= evento.getMazzi_evento();
+    	List<Servizio> servizi_evento= evento.getServizi_evento();
+    	List<Accessorio> accessori_evento= evento.getAccessori_evento();
+    	List<Recensione> recensioni_evento= evento.getRecensioni_evento();
+    	
+        List<String> fotoEvento = evento.getFoto_evento();
+        String uploadDir = "src/main/resources/static/images/foto_eventi";
+        for (String foto : fotoEvento) {
+            FileUploadUtil.deleteFile(uploadDir, foto);
+        }
+        for (Fiore fiore : fiori_evento) {
+           fiore.getEventi().remove(evento);
+        }
+        for (Mazzo mazzo : mazzi_evento) {
+          mazzo.getEventi().remove(evento);
+        }
+        for (Servizio sevizio : servizi_evento) {
+        	sevizio.getEventi().remove(evento);
+        }
+        for (Accessorio accessorio : accessori_evento) {
+        	accessorio.getEventi().remove(evento);
+        }
+        for (Recensione recensione : recensioni_evento) {
+        	recensioneService.deleteById(recensione.getId());
+        }
+        eventoService.deleteById(eventoId);
+        model.addAttribute("utente", utente);
+        return "redirect:/admin/eventi";
+    }
+    
+    ///////////////////////////////////foto//////////////////////////////////////
     
     /**
      * Metodo per salvare una foto per un evento esistente.
@@ -205,6 +434,8 @@ public class EventoController {
         }
         return "redirect:/";
     }
+    
+    /////////////////////////////////optional/////////////////////////////
 
     @PostMapping("/admin/evento/addFiore")
     public String addFioreToEvento(@RequestParam("fioreId") Long fioreId, @ModelAttribute("evento") Evento evento, @ModelAttribute("utente") User utente) {
@@ -306,40 +537,4 @@ public class EventoController {
         return "redirect:/admin/PaginaModificaEvento/" + evento.getId();
     }
 
-    @GetMapping("/eventi")
-    public String getAllEventi(@ModelAttribute("utente") User utente, Model model) {
-        model.addAttribute("tutti_eventi", eventoService.getAllEventi());
-        model.addAttribute("utente", utente);
-        return "eventi.html";
-    }
-
-    @GetMapping("/admin/eventi")
-    public String adminGetAllEventi(@ModelAttribute("utente") User utente, Model model) {
-        model.addAttribute("tutti_eventi", eventoService.getAllEventi());
-        model.addAttribute("utente", utente);
-        return "admin/pagine_evento_amministratore/eventi.html";
-    }
-
-    /**
-     * Metodo per rimuovere un evento dal sistema.
-     * 
-     * @param eventoId ID del evento da rimuovere.
-     * @param utente   Oggetto utente da associare al modello.
-     * @param model    Oggetto Model per passare attributi alla vista.
-     * @return Redirect alla pagina con la lista di tutti gli eventi.
-     * @throws IOException In caso di errori durante l'eliminazione dei file.
-     */
-    @PostMapping("/admin/rimuoviEvento/{id}")
-    public String removeEvento(@PathVariable("id") Long eventoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
-        Evento evento = eventoService.getEventoById(eventoId);
-        List<String> fotoEvento = evento.getFoto_evento();
-        String uploadDir = "src/main/resources/static/images/foto_eventi";
-        for (String foto : fotoEvento) {
-            FileUploadUtil.deleteFile(uploadDir, foto);
-        }
-        
-        eventoService.deleteById(eventoId);
-        model.addAttribute("utente", utente);
-        return "redirect:/admin/eventi";
-    }
 }

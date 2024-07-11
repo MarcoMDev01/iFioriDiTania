@@ -143,90 +143,6 @@ public class MazzoController {
         return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
     }
     
-    
-
-    
-    /**
-     * Metodo per aggiungere un fiore al mazzo al sistema.
-     * 
-     * @param mazzo         Oggetto Mazzo con le informazioni del nuovo mazzo.
-     * @param utente        Oggetto utente da associare al modello.
-     * @param model         Oggetto Model per passare attributi alla vista.
-     * @return Redirect alla pagina di modifica del mazzo appena aggiunto.
-     */
-    @PostMapping("/admin/aggiungiFioreAlMazzo/{fioreId}")
-    private String AggiungiFiorialMazzo( @RequestParam Long mazzoId,@PathVariable("fioreId") Long fioreId, @ModelAttribute("utente") User utente, Model model)  {
-        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);         
-        mazzo.getFioriDelMazzo().add(fioreService.getFioreById(fioreId));
-        mazzoService.saveMazzo(mazzo);
-        model.addAttribute("utente", utente);
-        model.addAttribute("mazzo", mazzo);
-        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
-    }
-    /**
-     * Metodo per aggiungere un fiore al mazzo al sistema.
-     * 
-     * @param mazzo         Oggetto Mazzo con le informazioni del nuovo mazzo.
-     * @param utente        Oggetto utente da associare al modello.
-     * @param model         Oggetto Model per passare attributi alla vista.
-     * @return Redirect alla pagina di modifica del mazzo appena aggiunto.
-     */
-    @PostMapping("/admin/aggiungiAccessorioAlMazzo/{accessorioId}")
-    private String AggiungiAccessorialMazzo( @RequestParam Long mazzoId,@PathVariable("accessorioId") Long accessorioId, @ModelAttribute("utente") User utente, Model model)  {
-        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);         
-        mazzo.getAccessoriDelMazzo().add(accessorioService.getAccessorioById(accessorioId));
-        mazzoService.saveMazzo(mazzo);
-        model.addAttribute("utente", utente);
-        model.addAttribute("mazzo", mazzo);
-        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
-    }
-    
-    
-    /**
-     * Metodo per salvare una foto per un mazzo esistente.
-     * 
-     * @param multipartFile Il file dell'immagine del mazzo.
-     * @param mazzoId       ID del mazzo a cui associare l'immagine.
-     * @param utente        Oggetto utente da associare al modello.
-     * @param model         Oggetto Model per passare attributi alla vista.
-     * @return Redirect alla pagina di modifica del mazzo.
-     * @throws IOException In caso di errori durante il salvataggio del file.
-     */
-    @PostMapping("/admin/MazzosavePhoto/{mazzoId}")
-    private String saveMazzoPhoto(@RequestParam("image") MultipartFile multipartFile, @PathVariable("mazzoId") Long mazzoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
-        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        mazzo.getFoto_mazzo().add(fileName);
-        String uploadDir = "src/main/resources/static/images/foto_mazzi";
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        mazzoService.saveMazzo(mazzo);
-        model.addAttribute("utente", utente);
-        model.addAttribute("mazzo", mazzo);
-        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
-    }
-    
-    /**
-     * Metodo per rimuovere una foto da un mazzo esistente.
-     * 
-     * @param imageName Il nome dell'immagine da rimuovere.
-     * @param mazzoId   ID del mazzo da cui rimuovere l'immagine.
-     * @param model     Oggetto Model per passare attributi alla vista.
-     * @return Redirect alla pagina di modifica del mazzo.
-     * @throws IOException In caso di errori durante l'eliminazione del file.
-     */
-    @PostMapping("/admin/mazzo/removePhoto/{mazzoId}")
-    private String removeMazzoPhoto(@RequestParam("image") String imageName, @PathVariable("mazzoId") Long mazzoId, Model model) throws IOException {
-        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
-        if (mazzo != null) {
-            mazzo.getFoto_mazzo().remove(imageName);
-            String uploadDir = "src/main/resources/static/images/foto_mazzi";
-            FileUploadUtil.deleteFile(uploadDir, imageName);
-            mazzoService.saveMazzo(mazzo); // Assicurati di salvare le modifiche al mazzo
-            return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
-        }
-        return "redirect:/";
-    }
-
     /**
      * Metodo per visualizzare la pagina con la lista di tutti i mazzi.
      * 
@@ -277,6 +193,95 @@ public class MazzoController {
         model.addAttribute("utente", utente);
         return "redirect:/admin/mazzi";
     }
+    
+
+    ///////////////////////////foto/////////////////////////////
+    
+    /**
+     * Metodo per salvare una foto per un mazzo esistente.
+     * 
+     * @param multipartFile Il file dell'immagine del mazzo.
+     * @param mazzoId       ID del mazzo a cui associare l'immagine.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica del mazzo.
+     * @throws IOException In caso di errori durante il salvataggio del file.
+     */
+    @PostMapping("/admin/MazzosavePhoto/{mazzoId}")
+    private String saveMazzoPhoto(@RequestParam("image") MultipartFile multipartFile, @PathVariable("mazzoId") Long mazzoId, @ModelAttribute("utente") User utente, Model model) throws IOException {
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        mazzo.getFoto_mazzo().add(fileName);
+        String uploadDir = "src/main/resources/static/images/foto_mazzi";
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        mazzoService.saveMazzo(mazzo);
+        model.addAttribute("utente", utente);
+        model.addAttribute("mazzo", mazzo);
+        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
+    }
+    
+    /**
+     * Metodo per rimuovere una foto da un mazzo esistente.
+     * 
+     * @param imageName Il nome dell'immagine da rimuovere.
+     * @param mazzoId   ID del mazzo da cui rimuovere l'immagine.
+     * @param model     Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica del mazzo.
+     * @throws IOException In caso di errori durante l'eliminazione del file.
+     */
+    @PostMapping("/admin/mazzo/removePhoto/{mazzoId}")
+    private String removeMazzoPhoto(@RequestParam("image") String imageName, @PathVariable("mazzoId") Long mazzoId, Model model) throws IOException {
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);
+        if (mazzo != null) {
+            mazzo.getFoto_mazzo().remove(imageName);
+            String uploadDir = "src/main/resources/static/images/foto_mazzi";
+            FileUploadUtil.deleteFile(uploadDir, imageName);
+            mazzoService.saveMazzo(mazzo); // Assicurati di salvare le modifiche al mazzo
+            return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
+        }
+        return "redirect:/";
+    }
+
+
+    
+    ///////////////////////////////// gestione dati ////////////////////////////////
+    
+    /**
+     * Metodo per aggiungere un fiore al mazzo al sistema.
+     * 
+     * @param mazzo         Oggetto Mazzo con le informazioni del nuovo mazzo.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica del mazzo appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiFioreAlMazzo/{fioreId}")
+    private String AggiungiFiorialMazzo( @RequestParam Long mazzoId,@PathVariable("fioreId") Long fioreId, @ModelAttribute("utente") User utente, Model model)  {
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);         
+        mazzo.getFioriDelMazzo().add(fioreService.getFioreById(fioreId));
+        mazzoService.saveMazzo(mazzo);
+        model.addAttribute("utente", utente);
+        model.addAttribute("mazzo", mazzo);
+        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
+    }
+    /**
+     * Metodo per aggiungere un fiore al mazzo al sistema.
+     * 
+     * @param mazzo         Oggetto Mazzo con le informazioni del nuovo mazzo.
+     * @param utente        Oggetto utente da associare al modello.
+     * @param model         Oggetto Model per passare attributi alla vista.
+     * @return Redirect alla pagina di modifica del mazzo appena aggiunto.
+     */
+    @PostMapping("/admin/aggiungiAccessorioAlMazzo/{accessorioId}")
+    private String AggiungiAccessorialMazzo( @RequestParam Long mazzoId,@PathVariable("accessorioId") Long accessorioId, @ModelAttribute("utente") User utente, Model model)  {
+        Mazzo mazzo = mazzoService.getMazzoById(mazzoId);         
+        mazzo.getAccessoriDelMazzo().add(accessorioService.getAccessorioById(accessorioId));
+        mazzoService.saveMazzo(mazzo);
+        model.addAttribute("utente", utente);
+        model.addAttribute("mazzo", mazzo);
+        return "redirect:/admin/PaginaModificaMazzo/" + mazzo.getId();
+    }
+    
+    
     
     @PostMapping("/admin/mazzo/fiore/rimuovi/{fioreId}")
     private String rimuoviFioreDalMazzo(Model model,@PathVariable("fioreId") Long fioreId, @RequestParam ("mazzoId") Long mazzoId){

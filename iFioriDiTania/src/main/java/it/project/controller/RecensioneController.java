@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.project.model.Evento;
 import it.project.model.Recensione;
 import it.project.model.User;
+import it.project.service.EventoService;
 import it.project.service.RecensioneService;
+import it.project.service.UserService;
 import it.project.utils.FileUploadUtil;
 
 /**
@@ -29,6 +32,13 @@ public class RecensioneController {
 
     @Autowired
     private RecensioneService recensioneService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private EventoService eventoService;
+    @Autowired
+    private GlobalController globalController;
+
     
     /**
      * Metodo per visualizzare la pagina di una singola recensione.
@@ -98,6 +108,23 @@ public class RecensioneController {
         model.addAttribute("utente", utente);
         model.addAttribute("recensione", new Recensione());
         return "admin/pagine_recensione_amministratore/PaginaAggiungiRecensione.html";
+    }
+    
+    
+    @GetMapping("/pagina_aggiungiRecensione_alSito")
+    private String PaginaAggiungiRecensioneAlSito(@ModelAttribute("utente") User utente, Model model) {
+        model.addAttribute("utente", utente);
+        model.addAttribute("recensione", new Recensione());
+        return "paginaRecensione.html";
+    }
+    
+    
+    @GetMapping("/pagina_aggiungiRecensione_Evento/{id}")
+    private String PaginaAggiungiRecensioneEvento(@ModelAttribute("utente") User utente,@PathVariable("id")Long eventoId, Model model) {
+        model.addAttribute("utente", utente);
+        model.addAttribute("evento", eventoService.getEventoById(eventoId));
+        model.addAttribute("recensione", new Recensione());
+        return "paginaRecensioneEvento.html";
     }
     
     /**
@@ -220,4 +247,61 @@ public class RecensioneController {
         model.addAttribute("utente", utente);
         return "redirect:/admin/recensioni";
     }
+    
+    
+    
+    @PostMapping("/admin/aggiungiRecensioneSito")
+    private String AggiungiRecensioneSito(@RequestParam("image") MultipartFile multipartFile, @ModelAttribute("recensione") Recensione recensione, Model model) throws IOException {
+        if (multipartFile != null) {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            recensione.getFoto_recensione().add(fileName);
+            String uploadDir = "src/main/resources/static/images/foto_recensioni";
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
+        User utente= globalController.getCurrentUser();
+        if(utente!=null) {
+        	recensione.setUtente_Recensione(utente);
+        	recensioneService.saveRecensione(recensione);
+        }else {
+            recensioneService.saveRecensione(recensione);
+        }
+        model.addAttribute("recensione", recensione);
+        return "redirect:/admin/PaginaModificaRecensione/" + recensione.getId();//TODO creare pagina recensioni sito
+    }
+    
+    
+    
+    //recensioni per gli eventi 
+    @PostMapping("/admin/aggiungiRecensioneEvento")
+    private String AggiungiRecensioneEvento(@RequestParam("image") MultipartFile multipartFile, @ModelAttribute("recensione") Recensione recensione,@RequestParam("eventoId")Long eventoId, Model model) throws IOException {
+        Evento evento=eventoService.getEventoById(eventoId);
+    	
+    	if (multipartFile != null) {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            recensione.getFoto_recensione().add(fileName);
+            String uploadDir = "src/main/resources/static/images/foto_recensioni";
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
+    	
+        User utente= globalController.getCurrentUser();
+        if(utente!=null) {
+        	recensione.setUtente_Recensione(utente);
+        	recensioneService.saveRecensione(recensione);
+        }else {
+            recensioneService.saveRecensione(recensione);
+        }
+        recensione.setEvento_Recensito(evento);
+        model.addAttribute("recensione", recensione);
+        return "redirect:/evento/" + evento.getId();
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

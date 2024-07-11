@@ -108,6 +108,20 @@ public class Fiore {
 	}
 
 	/**
+	 * @return the eventi
+	 */
+	public List<Evento> getEventi() {
+		return eventi;
+	}
+
+	/**
+	 * @param eventi the eventi to set
+	 */
+	public void setEventi(List<Evento> eventi) {
+		this.eventi = eventi;
+	}
+
+	/**
 	 * @return the mazziDelFiore
 	 */
 	public List<Mazzo> getMazziDelFiore() {

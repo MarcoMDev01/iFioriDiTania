@@ -23,20 +23,127 @@
     </form>
     <div>
         <h3>Foto</h3>
-			<form th:action="@{/admin/EventoSavePhoto/{eventoId}(eventoId=${evento.id})}" method="post"  enctype="multipart/form-data">
-				<label for="image">Choose image to upload</label>
-				<input type="file" name="image" accept="image/*" required>
-			 	<button type="submit">Aggiungi Foto</button>
-		    </form>
+        <form th:action="@{/admin/EventosavePhoto/{eventoId}(eventoId=${evento.id})}" method="post" enctype="multipart/form-data">
+            <label for="image">Choose image to upload</label>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Aggiungi Foto</button>
+        </form>
         <ul>
             <li th:each="foto : ${evento.foto_evento}">
                 <img th:src="@{/images/foto_eventi/{foto}(foto=${foto})}" alt="Foto Evento"/>
-				<form th:action="@{'/admin/evento/removePhoto/' + *{id}}" method="post">
-				                   <input type="hidden" name="image" th:value="${foto}">
-				                   <button type="submit">Rimuovi Foto</button>
-				               </form>
+                <form th:action="@{'/admin/evento/removePhoto/' + *{id}}" method="post">
+                    <input type="hidden" name="image" th:value="${foto}">
+                    <button type="submit">Rimuovi Foto</button>
+                </form>
             </li>
         </ul>
+        <ul> <h2>fiori dell'evento</h2>
+            <li th:each="fioreDellEvento : ${evento.fiori_evento}">
+                <h1 th:text="${fioreDellEvento.nome_fiore}"></h1>
+                <p>Descrizione: <span th:text="${fioreDellEvento.descrizione_fiore}"></span></p>
+                <p>Archiviato: <span th:text="${fioreDellEvento.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
+                <form th:action="@{/admin/evento/fiore/rimuovi/{fioreId}(fioreId=${fioreDellEvento.id})}" method="post">
+                    <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+                    <button type="submit">rimuovi fiore</button>
+                </form>
+            </li>
+        </ul>
+        <ul> <h2>accessori dell'evento</h2>
+            <li th:each="accessorioDellEvento : ${evento.accessori_evento}">
+                <h1 th:text="${accessorioDellEvento.nome_accessorio}"></h1>
+                <p>Descrizione: <span th:text="${accessorioDellEvento.descrizione_accessorio}"></span></p>
+                <p>Archiviato: <span th:text="${accessorioDellEvento.archiviato_accessorio} ? 'Sì' : 'No'"></span></p>
+                <form th:action="@{/admin/evento/accessorio/rimuovi/{accessorioId}(accessorioId=${accessorioDellEvento.id})}" method="post">
+                    <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+                    <button type="submit">rimuovi accessorio</button>
+                </form>
+            </li>
+        </ul>
+		<ul>
+		    <h2>servizi dell'evento</h2>
+		    <li th:each="servizioDellEvento : ${evento.servizi_evento}">
+		        <h1 th:text="${servizioDellEvento.nome_servizio}"></h1>
+		        <p>Descrizione: <span th:text="${servizioDellEvento.descrizione_servizio}"></span></p>
+		        <p>Archiviato: <span th:text="${servizioDellEvento.archiviato_servizio} ? 'Sì' : 'No'"></span></p>
+		        <form th:action="@{/admin/evento/servizio/rimuovi/{servizioId}(servizioId=${servizioDellEvento.id})}" method="post">
+		            <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+		            <button type="submit">rimuovi servizio</button>
+		        </form>
+		    </li>
+		</ul>
+		
+		<ul>
+		    <h2>mazzi dell'evento</h2>
+		    <li th:each="mazzoDellEvento : ${evento.mazzi_evento}">
+		        <h1 th:text="${mazzoDellEvento.nome_mazzo}"></h1>
+		        <p>Descrizione: <span th:text="${mazzoDellEvento.descrizione_mazzo}"></span></p>
+		        <p>Archiviato: <span th:text="${mazzoDellEvento.archiviato_mazzo} ? 'Sì' : 'No'"></span></p>
+		        <form th:action="@{/admin/evento/mazzo/rimuovi/{mazzoId}(mazzoId=${mazzoDellEvento.id})}" method="post">
+		            <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+		            <button type="submit">rimuovi mazzo</button>
+		        </form>
+		    </li>
+		</ul>
+		
+		<ul>
+		    <h2>recensione dell'evento</h2>
+		    <li th:each="recensioneDellEvento : ${evento.recensioni_evento}">
+		         <a th:href="@{/admin/PaginaModificaRecensione/{id}(id=${recensioneDellEvento.id})}" th:text="${recensioneDellEvento.nome_recensione}"></a>
+		        <p>Descrizione: <span th:text="${recensioneDellEvento.descrizione_recensione}"></span></p>
+		        <p>Archiviato: <span th:text="${recensioneDellEvento.archiviato_recensione} ? 'Sì' : 'No'"></span></p>
+		        <form th:action="@{/admin/evento/recensione/rimuovi/{recensioneId}(recensioneId=${recensioneDellEvento.id})}" method="post">
+		            <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+		            <button type="submit">rimuovi recensione</button>
+		        </form>
+		    </li>
+		</ul>
+
     </div>
+    <h1>Gestione di tutti gli accessori</h1>
+    <ul>
+        <li th:each="accessorio : ${tutti_accessori}">
+            <a th:href="@{/admin/PaginaModificaAccessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
+            <form th:action="@{/admin/aggiungiAccessorioAllEvento/{accessorioId}(accessorioId=${accessorio.id})}" method="post">
+                <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+                <button type="submit">Aggiungi Accessorio</button>
+            </form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiAccessorio">Crea Nuovo Accessorio</a>
+    <h1>Gestione di tutti i fiori</h1>
+    <ul>
+        <li th:each="fiore : ${tutti_fiori}">
+            <a th:href="@{/admin/PaginaModificaFiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
+            <form th:action="@{/admin/aggiungiFioreAllEvento/{fioreId}(fioreId=${fiore.id})}" method="post">
+                <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+                <button type="submit">Aggiungi fiore</button>
+            </form>
+        </li>
+    </ul>
+    <a href="/admin/pagina_aggiungiFiore">Crea Nuovo Fiore</a>
+	<h1>Gestione di tutti i servizi</h1>
+	<ul>
+	    <li th:each="servizio : ${tutti_servizi}">
+	        <a th:href="@{/admin/PaginaModificaServizio/{id}(id=${servizio.id})}" th:text="${servizio.nome_servizio}"></a>
+	        <form th:action="@{/admin/aggiungiServizioAllEvento/{servizioId}(servizioId=${servizio.id})}" method="post">
+	            <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+	            <button type="submit">Aggiungi Servizio</button>
+	        </form>
+	    </li>
+	</ul>
+	<a href="/admin/pagina_aggiungiServizio">Crea Nuovo Servizio</a>
+	<h1>Gestione di tutti i mazzi</h1>
+	<ul>
+	    <li th:each="mazzo : ${tutti_mazzi}">
+	        <a th:href="@{/admin/PaginaModificaMazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
+	        <form th:action="@{/admin/aggiungiMazzoAllEvento/{mazzoId}(mazzoId=${mazzo.id})}" method="post">
+	            <input type="hidden" th:name="eventoId" th:value="${evento.id}" />
+	            <button type="submit">Aggiungi Mazzo</button>
+	        </form>
+	    </li>
+	</ul>
+	<a href="/admin/pagina_aggiungiMazzo">Crea Nuovo Mazzo</a>
+
+
 </body>
 </html>

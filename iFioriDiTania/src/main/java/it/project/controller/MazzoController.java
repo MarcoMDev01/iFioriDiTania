@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.project.model.Accessorio;
+import it.project.model.Evento;
 import it.project.model.Fiore;
 import it.project.model.Mazzo;
 import it.project.model.User;
@@ -187,6 +188,9 @@ public class MazzoController {
         String uploadDir = "src/main/resources/static/images/foto_mazzi";
         for (String foto : fotoMazzo) {
             FileUploadUtil.deleteFile(uploadDir, foto);
+        }
+        for (Evento evento : mazzo.getEventi() ) {
+        	evento.getMazzi_evento().remove(mazzo);
         }
         
         mazzoService.deleteById(mazzoId);

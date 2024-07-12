@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.project.model.Evento;
 import it.project.model.Fiore;
 import it.project.model.User;
 import it.project.service.FioreService;
@@ -215,7 +216,9 @@ public class FioreController {
         for (String foto : fotoFiore) {
             FileUploadUtil.deleteFile(uploadDir, foto);
         }
-        
+        for (Evento evento : fiore.getEventi() ) {
+        	evento.getFiori_evento().remove(fiore);
+        }
         fioreService.deleteFiore(fioreId);
         model.addAttribute("utente", utente);
         return "redirect:/admin/fiori";

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.project.model.Evento;
 import it.project.model.Servizio;
 import it.project.model.User;
 import it.project.service.ServizioService;
@@ -215,7 +216,9 @@ public class ServizioController {
         for (String foto : fotoServizio) {
             FileUploadUtil.deleteFile(uploadDir, foto);
         }
-        
+        for (Evento evento : servizio.getEventi() ) {
+        	evento.getServizi_evento().remove(servizio);
+        }
         servizioService.deleteById(servizioId);
         model.addAttribute("utente", utente);
         return "redirect:/admin/servizi";

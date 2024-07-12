@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.project.model.Accessorio;
+import it.project.model.Evento;
 import it.project.model.User;
 import it.project.service.AccessorioService;
 import it.project.utils.FileUploadUtil;
@@ -215,7 +216,9 @@ public class AccessorioController {
         for (String foto : fotoAccessorio) {
             FileUploadUtil.deleteFile(uploadDir, foto);
         }
-        
+        for (Evento evento : accessorio.getEventi() ) {
+        	evento.getAccessori_evento().remove(accessorio);
+        }
         accessorioService.deleteAccessorio(accessorioId);
         model.addAttribute("utente", utente);
         return "redirect:/admin/accessori";

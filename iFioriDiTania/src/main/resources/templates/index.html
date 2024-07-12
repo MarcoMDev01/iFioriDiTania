@@ -3,11 +3,12 @@
 
 <head>
     <title>Homepage</title>
-    <link rel="stylesheet" href="/css/stile.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
-    <header>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+	<header>
         <div th:if="${#authentication.principal instanceof T(org.springframework.security.oauth2.core.oidc.user.OidcUser)}">
             Benvenuto, <span th:text="${#authentication.principal.fullName}">Utente</span>
                     <a  href="/logout">Logout</a>
@@ -23,6 +24,7 @@
             <a href="/login">Login</a>
         </div>
     </header>
+	
 </body>
 
 </html>

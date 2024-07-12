@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>header site</title>
+	<link rel="stylesheet" href="/css/styles.css" />
+
+</head>
+<body>
+	<header th:fragment="headernav" id="headernav">
+	  <div class="box">
+	    <div class="logo">
+	      <a th:href="@{/}">
+				  <img th:src="@{/images/logo.png}" alt="Logo">
+				</a>
+	    </div>
+	    <div class="interaction">
+	        <ul class="nav-links" id="nav-links">
+	          
+	          <li class="dropdown">
+	            <a href="/ricette">Fiori</a>
+	              <ul class="dropdown-content">
+	                  <li><a href="/ricette/fiore1">Fiore 1</a></li>
+	                  <li><a href="/ricette/fiore2">Fiore 2</a></li>
+	                  <li><a href="/ricette/fiore3">Fiore 3</a></li>
+	              </ul>
+	        </li>
+	          <li class="dropdown">
+	    <a href="/piante">Piante</a>
+	    <ul class="dropdown-content">
+	        <li><a href="/piante/pianta1">Pianta 1</a></li>
+	        <li><a href="/piante/pianta2">Pianta 2</a></li>
+	        <li><a href="/piante/pianta3">Pianta 3</a></li>
+	    </ul>
+	</li>
+
+	<li class="dropdown">
+	    <a href="/servizi">Servizi</a>
+	    <ul class="dropdown-content">
+	        <li><a href="/servizi/servizio1">Servizio 1</a></li>
+	        <li><a href="/servizi/servizio2">Servizio 2</a></li>
+	        <li><a href="/servizi/servizio3">Servizio 3</a></li>
+	    </ul>
+	</li>
+
+	<li class="dropdown">
+	    <a href="/accessori">Accessori</a>
+	    <ul class="dropdown-content">
+	        <li><a href="/accessori/accessorio1">Accessorio 1</a></li>
+	        <li><a href="/accessori/accessorio2">Accessorio 2</a></li>
+	        <li><a href="/accessori/accessorio3">Accessorio 3</a></li>
+	    </ul>
+	</li>
+
+	<li class="dropdown">
+	    <a href="/accessori">Recensioni</a>
+	    <ul class="dropdown-content">
+	        <li><a href="/accessori/accessorio1">Recensioni per il sito</a></li>
+	        <li><a href="/accessori/accessorio2">Recensioni per eventi passati</a></li>
+
+	    </ul>
+	</li>
+	          <li><a th:href="@{/cuochi}">Chi Siamo</a></li>
+	          <li><a th:href="@{/cuochi}">Colonia Felina</a></li>
+	        </ul>
+	    </div>
+	    <div class="userAccess">
+	      <a><button>Registrati</button></a>
+	      <a><button>Accedi</button></a>
+	    </div>
+	  </div>  
+	</header>
+</body>

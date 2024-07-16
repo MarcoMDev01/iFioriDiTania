@@ -2,47 +2,44 @@
 <html>
 
 <head>
-	<title>
-		Login
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${user}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-
-	
-	<h1>Login</h1>
-	<form th:action="@{/login}" method="POST">
-			<div>
-				<span>Username:</span>
-				<span><input name="username" type="text" required /></span>
-			</div>
-			<div>
-				<span>Password:</span>
-				<span><input name="password" type="password" required /></span>
-			</div>
-			<div>
-				<span th:if="${param.error != null}">Username o password errati</span>
-			</div>
-			<div>
-				<span><button type="submit">Login</button></span>
-			</div>
-	</form>
-	 <div>
-        <a th:href="@{/oauth2/authorization/google}">Login con Google</a>
+    <div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class="hero-login">
+        <div class="hero-login-content">
+            <h1 class="hero-login-title">Accedi con uno dei tuoi account</h1>
+            <p class="hero-login-subtitle">Accedi per visualizzare gli eventi partecipati e le tue recensioni</p>
+            <a href="/register" class="hero-login-link">Crea un nuovo account</a>
+            <a th:href="@{/oauth2/authorization/google}"><div class="hero-login-social">
+                <img src="images/google-icon.png" alt="Google">
+ 
+            </div></a>
+            <div class="hero-login-divider">Accedi tramite e-mail</div>
+            <form class="hero-login-form" th:action="@{/login}" method="POST">
+                <div>
+                    <span>E-mail:</span>
+                    <span><input name="username" type="text" required /></span>
+                </div>
+                <div>
+                    <span>Password:</span>
+                    <span><input name="password" type="password" required /></span>
+                </div>
+                <div>
+                    <span th:if="${param.error != null}">Username o password errati</span>
+                </div>
+ 
+                <div>
+                    <span><button type="submit">Accedi al tuo account</button></span>
+                </div>
+            </form>
+            <div>
+                <span>Oppure</span> <a href="/register" class="hero-login-link">Crea un nuovo account</a>
+            </div>
+        </div>
     </div>
-	<div>
-		<a th:href="@{/register}" th:text="Registrati">Registrati</a>
-	</div>
 </body>
 
 </html>

@@ -24,11 +24,14 @@ public class Recensione {
 	private List<String> foto_recensione = new ArrayList<>();
 
 	@ManyToOne
-	private Evento evento_Recensito;
+	private Evento eventoRecensito = null;
 	
 	@ManyToOne
 	private User utente_Recensione ;
 	
+    @Column(nullable = false)
+    private int rating;
+    
 	private Boolean approvazione;
 
 	/**
@@ -43,6 +46,20 @@ public class Recensione {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the rating
+	 */
+	public int getRating() {
+		return rating;
+	}
+
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	/**
@@ -77,14 +94,14 @@ public class Recensione {
 	 * @return the evento_Recensito
 	 */
 	public Evento getEvento_Recensito() {
-		return evento_Recensito;
+		return eventoRecensito;
 	}
 
 	/**
 	 * @param evento_Recensito the evento_Recensito to set
 	 */
 	public void setEvento_Recensito(Evento evento_Recensito) {
-		this.evento_Recensito = evento_Recensito;
+		this.eventoRecensito = evento_Recensito;
 	}
 
 	/**
@@ -117,7 +134,7 @@ public class Recensione {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(approvazione, evento_Recensito, id);
+		return Objects.hash(approvazione, eventoRecensito, id);
 	}
 
 	@Override
@@ -130,7 +147,7 @@ public class Recensione {
 			return false;
 		Recensione other = (Recensione) obj;
 		return Objects.equals(approvazione, other.approvazione)
-				&& Objects.equals(evento_Recensito, other.evento_Recensito) && Objects.equals(id, other.id);
+				&& Objects.equals(eventoRecensito, other.eventoRecensito) && Objects.equals(id, other.id);
 	}
 
 	

@@ -54,8 +54,8 @@ public class AuthConfiguration {
         http
             .csrf().and().cors().disable()  // Disabilita CSRF e CORS (non raccomandato per la produzione)
             .authorizeHttpRequests()
-            .requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/**", "/images/**", "/favicon.ico","/ricette","/cuochi").permitAll()  // Permette l'accesso pubblico a specifici URL
-            .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()  // Permette l'accesso pubblico alle registrazioni e login
+            .requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/**", "/images/**", "/favicon.ico","/demo","/recensione/**","/fiori/**","/servizi/**","/gatti/**","/recensioni/**","/accessori/**").permitAll()  // Permette l'accesso pubblico a specifici URL
+            .requestMatchers(HttpMethod.POST, "/register", "/login","/recensione/**").permitAll()  // Permette l'accesso pubblico alle registrazioni e login
             .requestMatchers(HttpMethod.GET, "/admin/**","/admin/all_user").hasAnyAuthority(ADMIN_ROLE)  // Richiede il ruolo di amministratore per accedere agli URL amministrativi
             .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)  // Richiede il ruolo di amministratore per le richieste POST sugli URL amministrativi
             .anyRequest().authenticated()  // Richiede l'autenticazione per tutte le altre richieste

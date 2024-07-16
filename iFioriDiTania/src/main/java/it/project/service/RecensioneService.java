@@ -1,5 +1,6 @@
 package it.project.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,9 @@ public class RecensioneService {
     public Iterable<Recensione> getAllRecensioni() {
         return recensioneRepository.findAll();
     }
+    public Iterable<Recensione> getRecensioniByEventoRecensitoIsNullAndApprovazioneIsTrue() {
+        return recensioneRepository.findByEventoRecensitoIsNullAndApprovazioneIsTrue();
+    }
+
 
 }

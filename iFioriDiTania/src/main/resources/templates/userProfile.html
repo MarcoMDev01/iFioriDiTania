@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>siwFood Profilo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{fragments/headernav :: headernav}"></div>
+    
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>User Profile</h1>
+            
+            <div th:if="${user != null}" class="profile-content">
+                <div class="user-info">
+                   
+                    <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
+                    <p><strong>Surname:</strong> <span th:text="${user.surname}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                   
+                </div>
+                
+                <div class="profile-picture">
+                    <img th:src="@{'/images/' + ${user.picture}}" alt="Profile Picture" width="150"/>
+                    <form th:action="@{/user/savePhoto}" method="POST" enctype="multipart/form-data">
+                        <label for="image">Choose image to upload</label>
+                        <input type="file" name="image" accept="image/*" required>
+                        <button type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+            
+
+            
+            <div th:if="${user == null}">
+                <p>No user information available.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

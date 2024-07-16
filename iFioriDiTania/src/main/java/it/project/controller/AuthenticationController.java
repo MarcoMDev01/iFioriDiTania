@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import it.project.model.*;
 import it.project.service.CredentialsService;
+import it.project.service.FioreService;
+import it.project.service.MazzoService;
+import it.project.service.RecensioneService;
+import it.project.service.ServizioService;
 import it.project.service.UserService;
 import it.project.model.Credentials;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +35,15 @@ public class AuthenticationController {
 
     @Autowired
 	private UserService userService;
+    @Autowired
+	private FioreService fioreService ;
+    @Autowired
+	private ServizioService servizioService ;
+    @Autowired
+	private MazzoService mazzoService ;
+    @Autowired
+	private RecensioneService recensioneService ;
+    
 
     @Autowired
     private GlobalController globalController;
@@ -48,7 +61,7 @@ public class AuthenticationController {
 		return "formLogin";
 	}
 
-	
+
 /*
 	@GetMapping(value = "/")
 	public String index(Model model) {
@@ -114,8 +127,10 @@ public class AuthenticationController {
         // Ottiene l'oggetto Authentication dalla SecurityContextHolder
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User utente = null;
-        
-
+        model.addAttribute("tutti_fiori", fioreService.getAllFiori());
+        model.addAttribute("tutti_servizi", servizioService.getAllServizi());
+        model.addAttribute("tutti_mazzi", mazzoService.getAllMazzi());
+        model.addAttribute("tutte_recensioni_sito", recensioneService.getRecensioniByEventoRecensitoIsNullAndApprovazioneIsTrue());
         // Verifica se l'autenticazione è anonima
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             // Se l'utente è anonimo, ritorna la pagina index
@@ -184,7 +199,7 @@ public class AuthenticationController {
                 credentialsService.saveCredentialsFromOidcUser(utenteOauth);
             }
 
-            return "index.html"; // Gli utenti OIDC sono sempre reindirizzati alla home
+            return "redirect:/";  // Gli utenti OIDC sono sempre reindirizzati alla home
         } else if (authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             // Estrai le informazioni necessarie da userDetails
@@ -195,7 +210,7 @@ public class AuthenticationController {
             if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
                 return "admin/indexAdmin.html"; // Reindirizza gli amministratori alla pagina admin
             }
-            return "index.html"; // Reindirizza gli altri utenti alla pagina principale
+            return "redirect:/";  // Reindirizza gli altri utenti alla pagina principale
         }
         return "redirect:/"; // Redirezione di default
     }

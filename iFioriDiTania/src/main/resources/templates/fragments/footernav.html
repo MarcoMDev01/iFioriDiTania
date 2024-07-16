@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>footer</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <footer th:fragment="footernav" id="footernav" class="footernav">
+        <div class="box">
+            <div class="logo">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="Logo">
+                </a>
+            </div>
+            <div class="interaction">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="@{/}">Fiori</a></li>
+                    <li><a href="@{/}">Piante</a></li>
+                    <li><a href="@{/}">Servizi</a></li>
+                    <li><a href="@{/}">Accessori</a></li>
+                    <li><a href="@{/}">Recensioni</a></li>
+                    <li><a th:href="@{/}">Chi Siamo</a></li>
+                    <li><a th:href="@{/}">Colonia Felina</a></li>
+                    <li><a th:href="@{/}">cookie policy</a></li>
+                    <li><a th:href="@{/}">privacy</a></li>
+                </ul>
+                <h5>© 2024 dev-Marco Micciche'® · P.IVA (F&F Fiori i Fiori Di Tania):  · REA:</h5>
+            </div>
+        </div>  
+    </footer>
+</body>
+</html>

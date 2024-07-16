@@ -1,21 +1,84 @@
-.box {
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-    width: 80%; /* Imposta la larghezza all'80% della pagina */
+.@font-face {
+    font-family: 'SugarMagic';
+    src: url('src/main/resources/fonts/sugarmagicpersonaluseonly-jemyo.woff2') format('woff2'),
+         url('src/main/resources/fonts/sugarmagicpersonaluseonly-jemyo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body{
+	
+	
+	margin: 0;
+}
+/* Dimensioni specifiche per i vari livelli di header */
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+h4 {
+    font-size: 1.5em;
+}
+
+h5 {
+    font-size: 1.25em;
+}
+
+h6 {
+    font-size: 1em;
+}
+
+/* Stile per i paragrafi */
+p {
+    font-size: 1em;
+    margin: 10px 0;
+    color: #666;
+}
+
+/* Stile per i link */
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+.headernav {
+    position: fixed; /* Fix the header at the top */
+    top: 20px;
+    z-index: 1000; /* Ensure this is higher than the z-index of the hero */
     background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 10px;
+    width: 80%; /* Ensure the header spans 80% of the page */
+    left: 50%; /* Center the header */
+    height:auto;
+    transform: translateX(-50%); /* Center the header */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transition: all 0.3s ease;
-    margin: 0 auto; /* Centra il contenitore */
-    border-radius: 30px;
+    border-radius: 30px; /* Rounded borders */
+    padding: 10px 20px;
+     
+}
+
+
+.box {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around;
+    align-items: center;
+
+    
 }
 
 .logo img {
+  margin: 5px;
+  height: 40px;
+}
+.logo-login img {
   margin: 5px;
   height: 40px;
 }
@@ -79,3 +142,522 @@
 .dropdown-content li a:hover {
     background-color: #f1f1f1;
 }
+/* Hero section styles */
+.hero-section {
+    background-color: #f8f9fa;
+    height: 80vh;
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 100px;
+    margin-top: 0; /* Ensure there's no margin at the top */
+    padding-top: 120px; /* Adjust this value based on the height of your header to avoid content being hidden */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+.hero-section h1{
+    font-family: 'SugarMagic',bold;
+    font-weight: 400;
+    font-size: 2em;
+    width: 400px;
+    text-transform: capitalize;
+}
+span{
+    color: #de0032;
+}
+.hero-section p{
+    font-family: 'SugarMagic' ,bold;
+    font-weight: 400;
+    font-size: 18px;
+    padding: 30px 0px;
+}
+.hero-section button{
+    font-family: 'SugarMagic' ;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    width: 135px;
+    height: 65px;
+    border-radius: 50px 0px 50px 0px;
+    background-color: #de0032;
+    border: none;
+}
+.hero-login {
+	background-image: url("/images/BG_2.jpg");
+	height: 100vh;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120vh;
+    background-color: #f0f0f0;
+}
+
+.hero-login-content {
+    margin-top:50px;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-content:center;
+	
+	width: 80%;
+    height:auto;
+    padding: 20px;
+ 
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.hero-login-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-login-subtitle {
+    margin: 5px 0;
+    font-size: 3em;
+    color: #666;
+	text-align: center;
+}
+
+.hero-login-form {
+    width: 100%;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-login-form div {
+    margin-bottom: 15px;
+    display: flex;
+
+}
+
+.hero-login-form div span {
+    width: 100%;
+}
+
+.hero-login-form div input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.hero-login-form div button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e9cec4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.hero-login-form div button:hover {
+    background-color: #854341;
+}
+
+.hero-login-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.hero-login-link:hover {
+    text-decoration: underline;
+}
+
+.hero-login-social {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.hero-login-social img {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.hero-login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.hero-login-divider::before,
+.hero-login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.hero-img{
+	
+	display: flex;
+	justify-content: center;
+	
+	
+}
+.hero-img img{
+	height: 70vh;
+
+	
+	
+}
+.sliderFiori {
+   
+    margin: auto;
+    display: flex; /* Manteniamo flex */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Centra il testo all'interno del contenitore */
+    overflow: hidden;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.flowers-slider {
+    position: relative;
+    display: flex; /* Cambia in flex per layout flexbox */
+    justify-content: center; /* Centra gli elementi */
+	
+}
+
+
+.swiper-slide {
+    max-width: 30vh; /* Imposta la larghezza massima */
+    
+    box-sizing: border-box; /* Include padding e bordo nel calcolo della larghezza e altezza */
+    overflow: hidden;
+    
+    
+}
+.recensioni-wrapper swiper-wrapper{
+	display: flex;
+	justify-content: center;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7); /* Sfondo scuro */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 50vh;
+    width: 30vh;
+    padding:20 20 20 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra il contenuto verticalmente */
+    align-items: center; /* Centra il contenuto orizzontalmente */
+        
+}
+
+.card img {
+    height: 50vh;
+	width: 30vh;
+    display: block;
+    object-fit: cover; /* Mantiene le proporzioni dell'immagine */
+    margin: 0;
+}
+
+
+.info {
+    position: absolute;
+    bottom: 0; /* Posiziona il testo in basso */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    color: white; /* Colore del testo bianco per leggibilità */
+    text-align: center;
+    box-sizing: border-box;
+    z-index: 6;
+    padding: 10px 0; /* Spaziatura interna per il testo */
+}
+.p-bianchi{
+	z-index: 100;
+	color: white;
+}
+a {
+    text-decoration: none;
+}
+
+.info p {
+    margin: 20px;
+    font-size: 16px;
+}
+
+.sfondo-card {
+    position: absolute;
+    bottom: 0; /* Posiziona il testo in basso */
+    left: 50%;
+    height: 100%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Sfondo scuro */
+    color: white; /* Colore del testo bianco per leggibilità */
+    text-align: center;
+    box-sizing: border-box;
+    z-index: 2;
+    padding: 10px 0; /* Spaziatura interna per il testo */
+}
+
+.embed-container {
+    position: relative;
+    height: 33.33vh; /* Altezza impostata a un terzo dell'altezza della pagina */
+    overflow: hidden;
+    width: 100%;
+    margin: 16px auto 0 auto; /* Spazio superiore di 16px e centratura orizzontale */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.embed-container iframe, .embed-container object, .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.box-recensioni {
+    background-color: #f8f9fa;   
+    position: relative;
+    height: auto; /* Altezza impostata a un terzo dell'altezza della pagina */
+    overflow: hidden;
+    width: 100%;
+    margin: 20px auto 0 auto; /* Spazio superiore di 16px e centratura orizzontale */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    
+}
+
+.recensioni-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recensioni-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+.recensioni-wrapper p {
+   color: black;
+}
+
+.recensioni-slide {
+    height: auto; /* Altezza dinamica in base al contenuto */
+    width: 300px;  /* Larghezza fissa per le slide */
+    box-sizing: border-box; /* Include padding e bordo nel calcolo della larghezza e altezza */
+    background-color: #fff; /* Sfondo bianco */
+    margin: 10px; /* Spazio tra le slide */
+    border-radius: 8px; /* Arrotondamento degli angoli */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra per le card */
+    padding: 30px; /* Padding interno */
+
+}
+.titolo-recensioni{
+	color: black;
+	margin-bottom: 10px;
+}
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+        }
+
+        .star-rating label {
+            font-size: 2em;
+            color: #E0E0E0; /* Colore delle stelle non selezionate */
+            cursor: pointer;
+        }
+
+        .star-rating label.selected {
+            color: #FFD700; /* Colore delle stelle selezionate */
+        }
+
+        .bottone_aggiungi_recensione {
+            background-color: #007BFF; /* Colore di sfondo del pulsante */
+            color: white; /* Colore del testo */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .bottone_aggiungi_recensione:hover {
+            background-color: #0056b3; /* Colore di sfondo del pulsante al passaggio del mouse */
+        }  
+.sfondo_bottone_rec{
+	background-color: #f8f9fa;
+	display: flex;
+    justify-content: center;
+    
+}   
+.sfondo_bottone_rec a{
+margin-bottom: 20px;
+    
+}
+
+
+
+/* Stile generale per il footer */
+footer.footernav {
+    
+    bottom: 0;
+    
+    height: 33vh;
+    background-color: #f8f9fa; /* Puoi cambiare il colore di sfondo come preferisci */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 50px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per il box contenente il logo e i link */
+footer.footernav .box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Stile per il logo */
+footer.footernav .logo img {
+    max-height: 90%; /* Assicura che il logo si adatti all'altezza del footer */
+}
+
+/* Stile per la sezione di interazione */
+footer.footernav .interaction {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Stile per la lista dei link */
+footer.footernav .interaction .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Permette ai link di andare a capo se necessario */
+}
+
+footer.footernav .interaction .nav-links li {
+    margin-right: 20px; /* Spaziatura tra i link */
+}
+
+footer.footernav .interaction .nav-links li a {
+    text-decoration: none;
+    color: #333;
+}
+
+footer.footernav .interaction h5 {
+    margin: 0;
+    font-size: 0.9em;
+    color: #777;
+}
+
+
+.perche_comprare{
+	display: flex;
+	justify-content: center;
+	height: auto;
+	flex-direction: column;/* Centra gli elementi verticalmente */
+	align-items: center; /* Centra gli elementi orizzontalmente */
+	
+}
+
+
+
+.contenitore_ragioni{
+	display: flex;
+	justify-content: space-between;
+
+	width:80%;
+	flex-wrap: wrap;	
+	
+}
+
+.contenitore_ragioni div{
+
+	display: flex;
+	justify-content: center;
+		flex-direction:column;
+	align-content:center;
+	width: 30vh;
+	height: auto;
+	margin-bottom: 3vh;
+}
+
+
+
+
+/* Stile per il banner dei cookie */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.cookie-banner p {
+    margin: 0;
+    
+}
+
+.cookie-banner a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.cookie-banner button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+   margin-left: 10vh;
+}
+
+
+
+
+

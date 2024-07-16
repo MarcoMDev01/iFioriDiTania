@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti gli Accessori</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Elenco di tutti gli accessori</h1>
-    <ul>
-        <li th:each="accessorio : ${tutti_accessori}">
-            <a th:href="@{/accessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
-        </li>
-    </ul>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Elenco di tutti gli accessori</h1>
+	    <ul>
+	        <li th:each="accessorio : ${tutti_accessori}">
+	            <a th:href="@{/accessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
+	        </li>
+	    </ul>
+	</div> 
+	<div th:replace="fragments/backToTop :: backToTop"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

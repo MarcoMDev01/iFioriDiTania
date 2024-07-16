@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutte le Recensioni</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
     <h1>Elenco di tutte le recensioni</h1>
     <ul>
         <li th:each="recensione : ${tutte_recensioni}">
             <a th:href="@{/recensione/{id}(id=${recensione.id})}" th:text="${recensione.descrizione_recensione}"></a>
         </li>
     </ul>
+    </div> 
+    <div th:replace="fragments/backToTop :: backToTop"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

@@ -2,13 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti i Fiori</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
     <h1>Elenco di tutti i fiori</h1>
-    <ul>
-        <li th:each="fiore : ${tutti_fiori}">
-            <a th:href="@{/fiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
-        </li>
-    </ul>
+	
+	    <ul>
+	        <li th:each="fiore : ${tutti_fiori}">
+	            <a th:href="@{/fiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
+	        </li>
+	    </ul>
+	</div> 
+	<div th:replace="fragments/backToTop :: backToTop"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

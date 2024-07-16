@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti i Servizi</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Elenco di tutti i servizi</h1>
-    <ul>
-        <li th:each="servizio : ${tutti_servizi}">
-            <a th:href="@{/servizio/{id}(id=${servizio.id})}" th:text="${servizio.nome_servizio}"></a>
-        </li>
-    </ul>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Elenco di tutti i servizi</h1>
+	    <ul>
+	        <li th:each="servizio : ${tutti_servizi}">
+	            <a th:href="@{/servizio/{id}(id=${servizio.id})}" th:text="${servizio.nome_servizio}"></a>
+	        </li>
+	    </ul>
+	</div> 
+	<div th:replace="fragments/backToTop :: backToTop"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

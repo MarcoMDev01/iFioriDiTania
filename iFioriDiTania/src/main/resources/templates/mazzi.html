@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti i Mazzi</title>
+     <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Elenco di tutti i Mazzi</h1>
-    <ul>
-        <li th:each="mazzo : ${tutti_mazzi}">
-            <a th:href="@{/mazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
-        </li>
-    </ul>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Elenco di tutti i Mazzi</h1>
+	    <ul>
+	        <li th:each="mazzo : ${tutti_mazzi}">
+	            <a th:href="@{/mazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
+	        </li>
+	    </ul>
+	 </div> 
+	<div th:replace="fragments/backToTop :: backToTop"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

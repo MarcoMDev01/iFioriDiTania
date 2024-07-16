@@ -1,5 +1,6 @@
 package it.project.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class FioreService {
         return fioreRepository.findAll();
     }
     
+    public List<String> getDistinctCategories() {
+        return fioreRepository.findDistinctCategories();
+    }
 
     @Transactional
     public void deleteFiore(Long id) {

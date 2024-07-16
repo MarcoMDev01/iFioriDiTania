@@ -181,6 +181,7 @@ public class FioreController {
     @GetMapping("/fiori")
     public String getAllFiori(@ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("tutti_fiori", fioreService.getAllFiori());
+        model.addAttribute("tutte_categorie_fiori", fioreService.getDistinctCategories());
         model.addAttribute("utente", utente);
         return "fiori.html";
     }

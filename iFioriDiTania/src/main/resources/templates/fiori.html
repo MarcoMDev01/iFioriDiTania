@@ -13,6 +13,9 @@
 	        <li th:each="fiore : ${tutti_fiori}">
 	            <a th:href="@{/fiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
 	        </li>
+	         	<li th:each="categoria : ${tutte_categorie_fiori}">
+	            <a th:text="${categoria}"></a>
+	        </li>
 	    </ul>
 	</div> 
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>

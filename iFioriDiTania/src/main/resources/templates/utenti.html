@@ -10,6 +10,6 @@
             <a th:href="@{/utente/{id}(id=${utente.id})}" th:text="${utente.name}"></a>
         </li>
     </ul>
-    <div th:replace="fragments/backToTop :: backToTop"></div>
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
 </body>
 </html>

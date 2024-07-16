@@ -10,6 +10,6 @@
             <a th:href="@{/evento/{id}(id=${evento.id})}" th:text="${evento.nome_evento}"></a>
         </li>
     </ul>
-    <div th:replace="fragments/backToTop :: backToTop"></div>
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
 </body>
 </html>

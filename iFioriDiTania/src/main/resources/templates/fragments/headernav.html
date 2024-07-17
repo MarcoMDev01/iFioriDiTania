@@ -21,7 +21,7 @@
 			    <li><a th:href="@{/piante}">Piante</a></li>
 			    <li><a th:href="@{/servizi}">Servizi</a></li>
 			    <li><a th:href="@{/accessori}">Accessori</a></li>
-			    <li><a th:href="@{/recensioni}">Recensioni</a></li>
+			    
 			    <li><a th:href="@{/}">Chi Siamo</a></li>
 			    <li><a th:href="@{/gatti}">Colonia Felina</a></li>
 				<li th:if="${#authentication.principal instanceof T(org.springframework.security.oauth2.core.oidc.user.OidcUser)}"||"${#authentication.principal instanceof T(org.springframework.security.core.userdetails.UserDetails)}"><a th:href="@{/user}">Profilo</a></li>

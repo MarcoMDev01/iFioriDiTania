@@ -131,6 +131,7 @@ public class AuthenticationController {
         model.addAttribute("tutti_servizi", servizioService.getAllServizi());
         model.addAttribute("tutti_mazzi", mazzoService.getAllMazzi());
         model.addAttribute("tutte_recensioni_sito", recensioneService.getRecensioniByEventoRecensitoIsNullAndApprovazioneIsTrue());
+        model.addAttribute("tutte_categorie_fiori", fioreService.getDistinctCategories());
         // Verifica se l'autenticazione è anonima
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             // Se l'utente è anonimo, ritorna la pagina index

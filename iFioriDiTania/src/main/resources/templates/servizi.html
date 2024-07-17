@@ -3,18 +3,73 @@
 <head>
     <title>Tutti i Servizi</title>
     <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        .container {
+            display: flex;
+            margin-bottom: 20px;
+            padding: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .reverse {
+            flex-direction: row-reverse;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            height: 50vh;
+           width: auto;
+        }
+        .details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items:center;
+            padding: 20px;
+        }
+        .reverse .image {
+            justify-content: flex-end;
+        }
+        .reverse .details {
+            justify-content: center;
+            align-items:center;
+        }
+        .image img {
+            width: 100%;
+            height: auto;
+        }
+        .servizi {
+            width: 80%;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
-	<div th:replace="~{fragments/headernav :: headernav}"></div>
-    <div class= "contenitore-hero">
-	    <h1>Elenco di tutti i servizi</h1>
-	    <ul>
-	        <li th:each="servizio : ${tutti_servizi}">
-	            <a th:href="@{/servizio/{id}(id=${servizio.id})}" th:text="${servizio.nome_servizio}"></a>
-	        </li>
-	    </ul>
-	</div> 
-	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class="contenitore-hero" style="min-height:40vh;">
+        <h1>Elenco di tutti i servizi</h1>
+        <div class="servizi">
+            <div th:each="servizio, iterStat : ${tutti_servizi}">
+                <div class="container" th:classappend="${iterStat.index % 2 == 0} ? ' reverse'">
+                    <div class="image">
+                        <img th:src="@{'/images/foto_servizi/' + ${servizio.foto_servizio[0]}}" alt="Immagine di servizio" />
+                    </div>
+                    <div class="details">
+                        <h3 th:text="${servizio.nome_servizio}"></h3>
+                        <p th:text="${servizio.descrizione_servizio}">Descrizione del servizio</p>
+                        <a th:href="@{/servizio/{id}(id=${servizio.id})}">
+                            <button>Dettagli</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/backToTop :: backToTop}"></div>
     <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

@@ -110,38 +110,7 @@ a {
     margin: 0 10px; /* Aggiunge un margine di 5px a sinistra e a destra di ogni link */
 }
 
-/* Stile per il sottomenu */
-.dropdown-content {
-    display: none; /* Nascondi il sottomenu di default */
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    left: 0; /* Allinea il sottomenu al lato sinistro del contenitore */
-    top: 100%; /* Posiziona il sottomenu subito sotto il link principale */
-}
 
-/* Stile per i link del sottomenu */
-.dropdown-content li a {
-    color: #000; /* Colore del testo */
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Mostra il sottomenu quando si passa il mouse sull'elemento principale */
-.nav-links li:hover .dropdown-content {
-    display: block;
-}
-
-/* Stile per gli elementi del sottomenu quando si passa il mouse */
-.dropdown-content li a:hover {
-    background-color: #f1f1f1;
-}
 /* Hero section styles */
 .hero-section {
     background-color: #f8f9fa;
@@ -334,9 +303,10 @@ h2 {
 }
 
 .flowers-slider {
-    position: relative;
+    
     display: flex; /* Cambia in flex per layout flexbox */
     justify-content: center; /* Centra gli elementi */
+    align-items: center;
 	
 }
 
@@ -352,6 +322,7 @@ h2 {
 .recensioni-wrapper swiper-wrapper{
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
 .card-link {

@@ -57,11 +57,13 @@
         .active, .dot:hover {
             background-color: #717171;
         }
+
+		        
     </style>
 </head>
 <body>
     <div th:replace="~{fragments/headernav :: headernav}"></div>
-    <div class="contenitore-hero" style="min-height:40vh;display: flex;flex-direction: row;">
+    <div class="contenitore-hero" style="min-height:40vh;display: flex;flex-direction: column;">
         
         <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin-right: 10vh;">
         <h1 th:text="${mazzo.nome_mazzo}"></h1>
@@ -81,12 +83,38 @@
                 </div>
                 <div class="dots" id="dots"></div>
             </div>
-            	        <ul>
-	            <li th:each="foto : ${mazzo.foto_mazzo}">
-	                <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
-	            </li>
-	        </ul>
+    
         </div>
+        	<h3>I Fiori che lo Compongono</h3>
+        		<div  style="display: flex;flex-direction: row; flex-wrap: wrap;flex: 1 1 calc(33.333% - 20px);width: 80%;justify-content: center;align-content: center; ">
+		            <div class="fiore-card"  th:each="fiore : ${mazzo.fioriDelMazzo}"><!-- Prendo elementi fiore e confronto per fare una scrematura -->
+		                <!-- Contenuto per ogni fiore -->
+						<a th:href="@{/fiore/{fioreId}(fioreId=${fiore.id})}" >
+							<div>
+			  				 	<img th:if="${fiore.foto_fiore != null and !fiore.foto_fiore.isEmpty()}"
+	     							th:src="@{'/images/foto_fiori/' + ${fiore.foto_fiore[0]}}"
+	     							alt="Immagine di fiore">
+			  				 	<h2 th:text="${fiore.nome_fiore}"></h2>
+
+							</div>
+							</a>
+		            </div>
+		         </div>
+		   <h3>Accessori inclusi</h3>
+        		<div  style="display: flex;flex-direction: row; flex-wrap: wrap;flex: 1 1 calc(33.333% - 20px);width: 80%;justify-content: center;align-content: center; ">
+		            <div class="fiore-card"  th:each="accessorio : ${mazzo.accessoriDelMazzo}"><!-- Prendo elementi fiore e confronto per fare una scrematura -->
+		                <!-- Contenuto per ogni fiore -->
+						<a th:href="@{/accessorio/{accessorioId}(accessorioId=${accessorio.id})}" >
+							<div>
+			  				 	<img th:if="${accessorio.foto_accessorio != null and !accessorio.foto_accessorio.isEmpty()}"
+	     							th:src="@{'/images/foto_accessori/' + ${accessorio.foto_accessorio[0]}}"
+	     							alt="Immagine di accessorio">
+			  				 	<h2 th:text="${accessorio.nome_accessorio}"></h2>
+
+							</div>
+							</a>
+		            </div>
+		         </div>         
     </div>
     
     <div th:replace="~{fragments/backToTop :: backToTop}"></div>

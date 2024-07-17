@@ -154,6 +154,7 @@ public class MazzoController {
     @GetMapping("/mazzi")
     private String getAllMazzi(@ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("tutti_mazzi", mazzoService.getAllMazzi());
+        model.addAttribute("tutte_categorie_mazzi", mazzoService.getDistinctCategories());
         model.addAttribute("utente", utente);
         return "mazzi.html";
     }

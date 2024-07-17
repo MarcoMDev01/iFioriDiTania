@@ -1,5 +1,6 @@
 package it.project.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,10 @@ public class MazzoService {
 
             mazzoRepository.deleteById(id);
         
+    }
+    
+    public List<String> getDistinctCategories() {
+        return mazzoRepository.findDistinctCategories();
     }
 
 }

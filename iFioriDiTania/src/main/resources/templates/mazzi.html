@@ -2,19 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti i Mazzi</title>
-     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-	<div th:replace="~{fragments/headernav :: headernav}"></div>
-    <div class= "contenitore-hero">
-	    <h1>Elenco di tutti i Mazzi</h1>
-	    <ul>
-	        <li th:each="mazzo : ${tutti_mazzi}">
-	            <a th:href="@{/mazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
-	        </li>
-	    </ul>
-	 </div> 
-	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class="contenitore-hero">
+        <h1>Elenco di tutti i mazzi</h1>
+
+
+	<div class="carousel-container" id="carouselContainer1">
+	    <div class="box-categorie-slider" id="carouselWrapper1"><!-- wrapper -->
+	        <div class="categoria-card-slider" th:each="categoria : ${tutte_categorie_mazzi}" th:href="'#' + ${categoria}" th:style="'background-image: url(\'/images/foto_mazzi/foto_categorie/' + ${categoria} + '.jpg\');'"><!-- item -->
+	            <!-- Contenuto della div per la categoria -->
+	            <a th:href="'#' + ${categoria}"></a>
+	            <h2 th:text="${categoria}"></h2>
+	        </div>
+	    </div>
+	    <button class="carousel-btn previous" onclick="prevSlide('carouselWrapper1')">&#8592;</button>
+	    <button class="carousel-btn next" onclick="nextSlide('carouselWrapper1')">&#8594;</button>
+	</div>
+
+    </div>
+    <div class="contenitore-di-categorie">
+        <div style="width: 80%;">
+            <div th:each="categoria : ${tutte_categorie_mazzi}">
+                <h3 th:id="${categoria}" th:text="${categoria}"></h3>
+                <div class="categoria-box">
+                    <div class="fiore-card" th:each="mazzo : ${tutti_mazzi}" 
+                         th:if="${mazzo.categoria_mazzo == categoria}">
+                        <a th:href="@{/mazzo/{mazzoId}(mazzoId=${mazzo.id})}">
+                            <div>
+                                <img th:if="${mazzo.foto_mazzo != null and !mazzo.foto_mazzo.isEmpty()}"
+                                     th:src="@{'/images/foto_mazzi/' + ${mazzo.foto_mazzo[0]}}"
+                                     alt="Immagine di bouquet">
+                                <h2 th:text="${mazzo.nome_mazzo}"></h2>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div th:replace="~{fragments/backToTop :: backToTop}"></div>
     <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

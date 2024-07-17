@@ -4,43 +4,12 @@
 <head>
     <title>Homepage</title>
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/js/script.js" />
+    
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Centra il contenitore principale */
-        .centered {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: 100%;
-        }
-          .box-recensioni {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: 100%;
-        }
-        /* Centra il contenitore Swiper all'interno del contenitore principale */
-        
-        .flowers-slider {
-            display: flex;
-            justify-content: center;
-            width: 80%; /* Adatta la larghezza secondo necessità */
-        }
-        .swiper-wrapper {
-            display: flex;
-            justify-content: center; /* Centra le slide all'interno del wrapper */
-        }
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .card {
-            width: 100%; /* Imposta la larghezza della card al 100% della slide */
-        }
+
     </style>
 </head>
 
@@ -59,33 +28,21 @@
     </div>
 
 
- <div class="sliderFiori centered">
-        <h2>Tutti i Servizi</h2>
-        <div class="flowers-slider swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" th:each="servizio : ${tutti_servizi}">
-                    <div class="card">
-                        <a th:href="@{/servizio/{id}(id=${servizio.id})}" class="card-link">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide" th:each="picture : ${servizio.foto_servizio}">
-                                        <img th:src="@{'/images/foto_servizi/' + ${picture}}" alt="Immagine servizio" />
-                                    </div>
-                                    <div class="sfondo-card">
-                                        <div class="info">
-                                            <p class="p-bianchi" th:text="${servizio.nome_servizio}">Nome servizio</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Aggiungi la paginazione -->
-            <div class="swiper-pagination"></div>
-        </div>
-    </div>
+
+    <h2>Tutti i Servizi</h2>
+    	<div class="carousel-container" id="carouselContainer1">
+    	
+	    	<div class="box-categorie-slider" id="carouselWrapper1"><!-- wrapper -->
+				<div class="categoria-card-slider" th:each="servizio : ${tutti_servizi}"  th:style="'background-image: url(\'/images/foto_servizi/' + ${servizio.foto_servizio[0]} + '\');'"><!-- item -->
+	  				  <!-- Contenuto della div per la categoria -->
+	  				 <a th:href=@{/servizio/{id}(id=${servizio.id})} ></a>
+	   				 <h2 th:text="${servizio.nome_servizio}"></h2>
+				</div>
+
+		    </div>
+		    	<button class="carousel-btn previous" onclick="prevSlide('carouselWrapper1')">&#8592;</button>
+        		<button class="carousel-btn next" onclick="nextSlide('carouselWrapper1')">&#8594;</button>
+		 </div>
 
     <div>
         <h2>Dove Siamo</h2>
@@ -94,60 +51,22 @@
             </iframe>
         </div>
     </div>
-	<div class="dimensione_slide">
-	    <div class="sliderFiori centered">
-	        <h2>Tutti i Fiori</h2>
-	        <div class="flowers-slider swiper">
-	            <div class="swiper-wrapper">
-	                <div class="swiper-slide" th:each="fiore : ${tutti_fiori}">
-	                    <a th:href="@{/fiore/{id}(id=${fiore.id})}" class="card-link">
-	                        <div class="card">
-	                            <div class="swiper-container">
-	                                <div class="swiper-wrapper">
-	                                    <div class="swiper-slide" th:each="picture : ${fiore.foto_fiore}">
-	                                        <img th:src="@{'/images/foto_fiori/' + ${picture}}" alt="Immagine fiore" />
-	                                    </div>
-	                                    <div class="sfondo-card">
-	                                        <div class="info">
-	                                            <p class="p-bianchi" th:text="${fiore.nome_fiore}">Nome Fiore</p>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+		<h2>Tutti i Fiori</h2>
+    	<div class="carousel-container" id="carouselContainer2">
+    	
+	    	<div class="box-categorie-slider" id="carouselWrapper2"><!-- wrapper -->
+				<div class="categoria-card-slider" th:each="fiore : ${tutti_fiori}"  th:style="'background-image: url(\'/images/foto_fiori/' + ${fiore.foto_fiore[0]} + '\');'"><!-- item -->
+	  				  <!-- Contenuto della div per la categoria -->
+	  				 <a th:href=@{/fiore/{id}(id=${fiore.id})} ></a>
+	   				 <h2 th:text="${fiore.nome_fiore}"></h2>
+				</div>
 
-    <div class="box-recensioni ">
-        <div class="sliderRecensioni ">
-            <h2 class="titolo-recensioni">Tutti i Recensioni</h2>
-            <div class="recensioni-slider swiper ">
-                <div class="recensioni-wrapper swiper-wrapper">
-                    <div class="recensioni-slide swiper-slide" th:each="recensione : ${tutte_recensioni_sito}">
-                        <div class="card-rec">
-                            <div class="recensioni-container">
-                                <div class="recensioni-wrapper">
-                                    <p th:text="${recensione.descrizione_recensione}">Nome recensione</p><br>
-                                    <div class="info">
-                                        <div class="star-rating">
-                                            <label th:each="i : ${#numbers.sequence(1, 5)}" th:classappend="${i <= recensione.rating} ? 'selected' : ''">&#9733;</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="sfondo_bottone_rec">
-                <a th:href="@{/recensione/pagina_aggiungiRecensione_alSito}"><button class="bottone_aggiungi_recensione">aggiungi recensione</button></a>
-            </div>
-        </div>
-    </div>
+		    </div>
+		    	<button class="carousel-btn previous" onclick="prevSlide('carouselWrapper2')">&#8592;</button>
+        		<button class="carousel-btn next" onclick="nextSlide('carouselWrapper2')">&#8594;</button>
+		 </div>  
+
+     
 
     <div class="perche_comprare">
         <h2>Perche Comprare Da Noi</h2>
@@ -174,45 +93,95 @@
             </div>
         </div>
     </div>
+		<h2>Recensioni</h2>
+    	<div class="carousel-container" id="carouselContainer3">
+    	
+	    	<div class="box-categorie-slider" id="carouselWrapper3"><!-- wrapper -->
+				<div class="categoria-card-slider" th:each="recensione : ${tutte_recensioni_sito}" style="box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);"><!-- item -->
+                                    <p th:text="${recensione.descrizione_recensione}">Nome recensione</p><br>
+                                    <div >
+                                        <div class="star-rating">
+                                            <label th:each="i : ${#numbers.sequence(1, 5)}" th:classappend="${i <= recensione.rating} ? 'selected' : ''">&#9733;</label>
+                                        </div>
+                                    </div>
+				</div>
+
+		    </div>
+		    	<button class="carousel-btn previous" onclick="prevSlide('carouselWrapper3')">&#8592;</button>
+        		<button class="carousel-btn next" onclick="nextSlide('carouselWrapper3')">&#8594;</button>
+        		 
+		 </div>  
+            <div style="display: flex;justify-content: center; align-items: center; margin-bottom:40px; ">
+                <a th:href="@{/recensione/pagina_aggiungiRecensione_alSito}"><button class="bottone_aggiungi_recensione">Dicci la tua!</button></a>
+            </div>		 
+     
+	    <script >
+	    let autoSlideInterval;
+
+	    function showSlide(wrapperId, index) {
+	        const carouselWrapper = document.getElementById(wrapperId);
+	        const totalSlides = carouselWrapper.children.length;
+
+	        carouselWrapper.style.transition = 'none';
+	        carouselWrapper.appendChild(carouselWrapper.children[0]);
+	        carouselWrapper.style.transform = 'translateX(0)';
+	        currentSlide = totalSlides - 1;
+	    }
+
+	    function nextSlide(wrapperId) {
+	        const carouselWrapper = document.getElementById(wrapperId);
+	        const totalSlides = carouselWrapper.children.length;
+
+	        carouselWrapper.style.transition = 'none';
+	        carouselWrapper.appendChild(carouselWrapper.children[0]);
+	        carouselWrapper.style.transform = 'translateX(0)';
+	        currentSlide = totalSlides - 1;
+	    }
+
+	    function prevSlide(wrapperId) {
+	        const carouselWrapper = document.getElementById(wrapperId);
+	        const totalSlides = carouselWrapper.children.length;
+
+	        carouselWrapper.insertBefore(carouselWrapper.children[totalSlides - 1], carouselWrapper.children[0]);
+
+	        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+
+	        carouselWrapper.style.transition = 'none';
+	        carouselWrapper.style.transform = `translateX(0)`;
+	    }
+
+	    function startAutoSlide(wrapperId) {
+	        autoSlideInterval = setInterval(() => nextSlide(wrapperId), 2000);
+	    }
+
+	    function stopAutoSlide() {
+	        clearInterval(autoSlideInterval);
+	    }
+
+	    document.addEventListener('DOMContentLoaded', () => {
+	        showSlide('carouselWrapper1', 0);
+	        showSlide('carouselWrapper2', 0);
+	        startAutoSlide('carouselWrapper1');
+	        startAutoSlide('carouselWrapper2');
+
+	        document.querySelector('#carouselContainer1').addEventListener('mouseover', stopAutoSlide);
+	        document.querySelector('#carouselContainer1').addEventListener('mouseout', () => startAutoSlide('carouselWrapper1'));
+
+	        document.querySelector('#carouselContainer2').addEventListener('mouseover', stopAutoSlide);
+	        document.querySelector('#carouselContainer2').addEventListener('mouseout', () => startAutoSlide('carouselWrapper2'));
+	    });
+
+	    
+	    </script>
+	    
+	    
+	    
+	    
+	    
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
     <div th:replace="~{fragments/footernav :: footernav}"></div>
  	
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var flowersSwiper = new Swiper('.flowers-slider', {
-                slidesPerView: 6, // Mostra 3 slide alla volta
-                spaceBetween: 10, // Spazio tra le slide
-                
-                
-                pagination: {
-                    el: '.flowers-slider .swiper-pagination',
-                    clickable: true,
-                },
-                loop: true,
-                autoplay: {
-                    delay: 5000, // Cambia slide ogni 5 secondi
-                    disableOnInteraction: false,
-                },
-            });
-
-            var recensioniSwiper = new Swiper('.recensioni-slider', {
-                slidesPerView: 6, // Mostra 5 slide alla volta
-                spaceBetween: 20, // Spazio tra le slide
-                centeredSlides: true,
-                pagination: {
-                    el: '.recensioni-slider .swiper-pagination',
-                    clickable: true,
-                },
-                loop: true,
-                autoplay: {
-                    delay: 5000, // Cambia slide ogni 5 secondi
-                    disableOnInteraction: false,
-                },
-                grabCursor: true,
-            });
-        });
-    </script>
+  
 
     <!-- Banner dei cookie -->
     <div id="cookie-banner" class="cookie-banner">

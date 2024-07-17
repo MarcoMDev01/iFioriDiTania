@@ -8,18 +8,23 @@
 <body>
 	<div th:replace="~{fragments/headernav :: headernav}"></div>
     <div class= "contenitore-hero">
-    <h1>Elenco di tutti i Accessori</h1>
+    
 	
 
-	    <div class="box-categorie">
-			<div class="categoria-card" th:each="categoria : ${tutte_categorie_accessori}" th:href="'#' + ${categoria}" th:style="'background-image: url(\'/images/foto_accessori/foto_categorie/' + ${categoria} + '\');'">
-  				  <!-- Contenuto della div per la categoria -->
-  				 <a th:href="'#' + ${categoria}" ></a>
-   				 <h2 th:text="${categoria}"></h2>
-			</div>
+	<h1>Elenco di tutti gli accessori</h1>
 
-	    
-	    </div>
+	<div class="carousel-container" id="carouselContainer1">
+		<div class="box-categorie-slider" id="carouselWrapper1"><!-- wrapper -->
+			<div class="categoria-card-slider" th:each="categoria : ${tutte_categorie_accessori}" th:href="'#' + ${categoria}" th:style="'background-image: url(\'/images/foto_accessori/foto_categorie/' + ${categoria} + '.jpg\');'"><!-- item -->
+				  <!-- Contenuto della div per la categoria -->
+				  <a th:href="'#' + ${categoria}" ></a>
+				  <h2 th:text="${categoria}"></h2>
+			</div>
+		</div>
+		<button class="carousel-btn previous" onclick="prevSlide('carouselWrapper1')">&#8592;</button>
+		<button class="carousel-btn next" onclick="nextSlide('carouselWrapper1')">&#8594;</button>
+	</div>
+
 	</div>
 	<div class="contenitore-di-categorie"  ><!-- Definisco larghezza -->
 	    <div style="width: 80%;"><!-- Definisco box interno con 80% larghezza -->
@@ -32,7 +37,7 @@
 							<div>
 			  				 	<img th:if="${accessorio.foto_accessorio != null and !accessorio.foto_accessorio.isEmpty()}"
 	     							th:src="@{'/images/foto_accessori/' + ${accessorio.foto_accessorio[0]}}"
-	     							alt="Immagine di accessorio">
+	     							alt="Immagine di accessorio" class="foto-card-sottopagina">
 			  				 	<h2 th:text="${accessorio.nome_accessorio}"></h2>
 
 							</div>
@@ -46,5 +51,63 @@
 	
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
     <div th:replace="~{fragments/footernav :: footernav}"></div>
+  <script >
+	    let autoSlideInterval;
+
+	    function showSlide(wrapperId, index) {
+	        const carouselWrapper = document.getElementById(wrapperId);
+	        const totalSlides = carouselWrapper.children.length;
+
+	        carouselWrapper.style.transition = 'none';
+	        carouselWrapper.appendChild(carouselWrapper.children[0]);
+	        carouselWrapper.style.transform = 'translateX(0)';
+	        currentSlide = totalSlides - 1;
+	    }
+
+	    function nextSlide(wrapperId) {
+	        const carouselWrapper = document.getElementById(wrapperId);
+	        const totalSlides = carouselWrapper.children.length;
+
+	        carouselWrapper.style.transition = 'none';
+	        carouselWrapper.appendChild(carouselWrapper.children[0]);
+	        carouselWrapper.style.transform = 'translateX(0)';
+	        currentSlide = totalSlides - 1;
+	    }
+
+	    function prevSlide(wrapperId) {
+	        const carouselWrapper = document.getElementById(wrapperId);
+	        const totalSlides = carouselWrapper.children.length;
+
+	        carouselWrapper.insertBefore(carouselWrapper.children[totalSlides - 1], carouselWrapper.children[0]);
+
+	        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+
+	        carouselWrapper.style.transition = 'none';
+	        carouselWrapper.style.transform = `translateX(0)`;
+	    }
+
+	    function startAutoSlide(wrapperId) {
+	        autoSlideInterval = setInterval(() => nextSlide(wrapperId), 2000);
+	    }
+
+	    function stopAutoSlide() {
+	        clearInterval(autoSlideInterval);
+	    }
+
+	    document.addEventListener('DOMContentLoaded', () => {
+	        showSlide('carouselWrapper1', 0);
+	        showSlide('carouselWrapper2', 0);
+	        startAutoSlide('carouselWrapper1');
+	        startAutoSlide('carouselWrapper2');
+
+	        document.querySelector('#carouselContainer1').addEventListener('mouseover', stopAutoSlide);
+	        document.querySelector('#carouselContainer1').addEventListener('mouseout', () => startAutoSlide('carouselWrapper1'));
+
+	        document.querySelector('#carouselContainer2').addEventListener('mouseover', stopAutoSlide);
+	        document.querySelector('#carouselContainer2').addEventListener('mouseout', () => startAutoSlide('carouselWrapper2'));
+	    });
+
+	    
+	</script>
 </body>
 </html>

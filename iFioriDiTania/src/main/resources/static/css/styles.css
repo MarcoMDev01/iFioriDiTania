@@ -8,37 +8,46 @@
 
 
 body{
+	display:flex;
+	flex-direction:column;
 	
 	
 	margin: 0;
 }
 /* Dimensioni specifiche per i vari livelli di header */
 h1 {
+font-family: 'SugarMagic',bold;
     font-size: 2.5em;
 }
 
 h2 {
+	font-family: 'SugarMagic',bold;
     font-size: 2em;
 }
 
 h3 {
+	font-family: 'SugarMagic',bold;
     font-size: 1.75em;
 }
 
 h4 {
+	font-family: 'SugarMagic',bold;
     font-size: 1.5em;
 }
 
 h5 {
+	font-family: 'SugarMagic',bold;
     font-size: 1.25em;
 }
 
 h6 {
+	font-family: 'SugarMagic',bold;
     font-size: 1em;
 }
 
 /* Stile per i paragrafi */
 p {
+	font-family: 'SugarMagic',bold;
     font-size: 1em;
     margin: 10px 0;
     color: #666;
@@ -46,6 +55,7 @@ p {
 
 /* Stile per i link */
 a {
+	font-family: 'SugarMagic',bold;
     color: #007BFF;
     text-decoration: none;
 }
@@ -142,8 +152,8 @@ span{
     font-size: 18px;
     padding: 30px 0px;
 }
-.hero-section button{
-    font-family: 'SugarMagic' ;
+.hero-section button {
+    font-family: 'SugarMagic';
     font-weight: 700;
     font-size: 15px;
     color: #fff;
@@ -152,16 +162,20 @@ span{
     border-radius: 50px 0px 50px 0px;
     background-color: #de0032;
     border: none;
+    cursor: pointer; /* Aggiunto per indicare che è un elemento cliccabile */
+}
+
+.hero-section button:hover {
+    background-color: #800000;
 }
 .hero-login {
-	background-color: #f8f9fa;
+
 	height: 100vh;
-	background-repeat: no-repeat;
-	background-size: cover;
+
 	display: flex;
     justify-content: center;
     align-items: center;
-    height: 120vh;
+  
     background-color: #f0f0f0;
 }
 
@@ -503,8 +517,8 @@ margin-bottom: 20px;
 
 /* Stile generale per il footer */
 footer.footernav {
-    position:absolute;
-    bottom: auto;
+    position:end;
+    bottom: ;
     width:100%;
     height: 33vh;
     background-color: #f8f9fa; /* Puoi cambiare il colore di sfondo come preferisci */
@@ -568,6 +582,9 @@ footer.footernav .interaction h5 {
 	height: auto;
 	flex-direction: column;/* Centra gli elementi verticalmente */
 	align-items: center; /* Centra gli elementi orizzontalmente */
+	background-color: #f8f9fa;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+	
 	
 }
 
@@ -689,6 +706,9 @@ border-radius: 50px;
 
 
 
+
+
+
 .box-categorie{
 	width: 80%;
 	height: 50vh;
@@ -756,13 +776,18 @@ border-radius: 50px;
     margin-right: 5vh;
     margin-bottom: 2vh;
     margin-top: 2vh;
+    overflow: hidden;
     
 }
-.fiore-card a div img{
-	width: 100%;
-	height: 100%;
+
+.fiore-card img{
+	width:30vh;
+	margin:0;
+}
+.fiore-card h2{
 	margin: 0;
 }
+
 
 .categoria-box{
 	display: flex;
@@ -789,4 +814,97 @@ border-radius: 50px;
 .fiore-card:hover .overlay {
     opacity: 1;
 }
+
+/*slider */
+.carousel-container{
+	position: relative;
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+
+.box-categorie-slider{
+	
+	
+	height: 50vh;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: transform 0.3s ease;
+	
+	
+}
+
+
+        
+.categoria-card-slider{
+	background-size: cover; /* Assicurati che l'immagine di sfondo copra l'intero div */
+    background-position: center; /* Centra l'immagine di sfondo */
+    cursor: pointer; /* Cambia il cursore per indicare che è cliccabile */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5vh;
+    margin-right: 5vh;
+     flex: 0 0 30vh; /* Ogni elemento occupa un terzo della larghezza del contenitore , per mod devi aggionare .categoria-card-slider a,.categoria-card-slider */
+   
+   
+    
+       
+}
+.categoria-card-slider h2{
+	
+	color: white;
+	z-index:6 ;
+	text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); 
+	font-size: 100%;
+	
+}
+.categoria-card-slider a{
+	 background: rgba(0, 0, 0, 0.3); /* Sfondo scuro */
+	 position: absolute; 
+	 text-decoration: none;
+	 color: inherit;
+	 
+	 
+}
+.categoria-card-slider a,
+.categoria-card-slider{
+	border-radius: 15px; /* Bordo arrotondato */
+	width:30vh;
+	height:40vh;
+}
+
+
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.previous {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* */
+
+
 

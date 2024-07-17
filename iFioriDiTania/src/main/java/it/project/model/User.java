@@ -134,6 +134,20 @@ public class User {
 		this.picture = picture;
 	}
 	
+	/**
+	 * @return the recensioni_utente
+	 */
+	public List<Recensione> getRecensioni_utente() {
+		return recensioni_utente;
+	}
+
+	/**
+	 * @param recensioni_utente the recensioni_utente to set
+	 */
+	public void setRecensioni_utente(List<Recensione> recensioni_utente) {
+		this.recensioni_utente = recensioni_utente;
+	}
+
 	@Transient
     public String getPictureImagePath() {
         if (picture == null || id == null) return null;

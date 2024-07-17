@@ -118,14 +118,7 @@ public class RecensioneController {
         return "PaginaAggiungiRecensione.html";
     }
     
-    
-    @GetMapping("/pagina_aggiungiRecensione_Evento/{id}")
-    private String PaginaAggiungiRecensioneEvento(@ModelAttribute("utente") User utente,@PathVariable("id")Long eventoId, Model model) {
-        model.addAttribute("utente", utente);
-        model.addAttribute("evento", eventoService.getEventoById(eventoId));
-        model.addAttribute("recensione", new Recensione());
-        return "paginaRecensioneEvento.html";
-    }
+
     
     /**
      * Metodo per aggiungere una nuova recensione al sistema.
@@ -318,30 +311,47 @@ public class RecensioneController {
     
     
     
-    //recensioni per gli eventi 
+    @GetMapping("/recensione/pagina_aggiungiRecensione_Evento/{eventoId}")
+    private String PaginaAggiungiRecensioneEvento(@ModelAttribute("utente") User utente, @PathVariable("eventoId") Long eventoId, Model model) {
+        model.addAttribute("utente", utente);
+        model.addAttribute("eventoId", eventoId);
+        model.addAttribute("recensione", new Recensione());
+        return "recensioneEvento";
+    }
+
     @PostMapping("/recensione/aggiungiRecensioneEvento")
-    private String AggiungiRecensioneEvento(@RequestParam("image") MultipartFile multipartFile, @ModelAttribute("recensione") Recensione recensione,@RequestParam("eventoId")Long eventoId, Model model) throws IOException {
-        Evento evento=eventoService.getEventoById(eventoId);
-    	
-    	if (multipartFile != null) {
+    private String AggiungiRecensioneEvento(@RequestParam("image") MultipartFile multipartFile, 
+                                            @ModelAttribute("recensione") Recensione recensione,
+                                            @RequestParam("eventoId") Long eventoId, 
+                                            Model model) throws IOException {
+        Evento evento = eventoService.getEventoById(eventoId);
+        recensione.setEvento_Recensito(evento);
+
+        if (multipartFile != null && !multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             recensione.getFoto_recensione().add(fileName);
             String uploadDir = "src/main/resources/static/images/foto_recensioni";
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }
-    	
-        User utente= globalController.getCurrentUser();
-        if(utente!=null) {
-        	recensione.setUtente_Recensione(utente);
-        	recensioneService.saveRecensione(recensione);
-        }else {
-            recensioneService.saveRecensione(recensione);
-        }
-        recensione.setEvento_Recensito(evento);
-        model.addAttribute("recensione", recensione);
-        return "redirect:/evento/" + evento.getId();
 
+        User utente = globalController.getCurrentUser();
+        if (utente != null) {
+            recensione.setUtente_Recensione(utente);
+            utente.getRecensioni_utente().add(recensione);
+            
+        }
+
+        // Salva l'evento nel caso non fosse già salvato
+        if (evento.getId() == null) {
+            eventoService.saveEvento(evento);
+        }
+
+        recensioneService.saveRecensione(recensione);
+        model.addAttribute("recensione", recensione);
+        return "redirect:/";
     }
+
+
     
     
     

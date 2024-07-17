@@ -169,14 +169,15 @@ span{
     background-color: #800000;
 }
 .hero-login {
-
+    padding-top: 120px; /* Adjust this value based on the height of your header to avoid content being hidden */
+	
 	height: 100vh;
 
 	display: flex;
     justify-content: center;
     align-items: center;
   
-    background-color: #f0f0f0;
+
 }
 
 .hero-login-content {

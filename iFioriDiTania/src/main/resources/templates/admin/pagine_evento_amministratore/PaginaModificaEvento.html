@@ -25,6 +25,10 @@
 	        </div>
 	        <button type="submit">Salva</button>
 	    </form>
+	    
+	    <h2>aggiungi recensione</h2>
+	    <a th:href="@{/recensione/pagina_aggiungiRecensione_Evento/{eventoId}(eventoId=${evento.id})}">recensione</a>
+	    
 	    <div>
 	        <h3>Foto</h3>
 	        <form th:action="@{/admin/EventosavePhoto/{eventoId}(eventoId=${evento.id})}" method="post" enctype="multipart/form-data">

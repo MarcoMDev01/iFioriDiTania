@@ -42,6 +42,14 @@
                 <p>No user information available.</p>
             </div>
         </div>
+        
+	    <ul>
+	        <li th:each="recensione : ${user.recensioni_utente}">
+	            <a th:href="@{/recensione/{id}(id=${recensione.id})}" th:text="${recensione.descrizione_recensione}"></a>
+	          
+	        </li>
+	    </ul>
+        
     </div>
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
 </body>

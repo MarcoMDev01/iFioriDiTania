@@ -1,20 +1,50 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Tutti gli Accessori</title>
+    <title>Tutti i Accessori</title>
     <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
 	<div th:replace="~{fragments/headernav :: headernav}"></div>
     <div class= "contenitore-hero">
-	    <h1>Elenco di tutti gli accessori</h1>
-	    <ul>
-	        <li th:each="accessorio : ${tutti_accessori}">
-	            <a th:href="@{/accessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
-	        </li>
-	    </ul>
-	</div> 
-	<div th:replace="~{fragments/backToTop :: backToTop}"></div>nts/backToTop :: backToTop"></div>
+    <h1>Elenco di tutti i Accessori</h1>
+	
+
+	    <div class="box-categorie">
+			<div class="categoria-card" th:each="categoria : ${tutte_categorie_accessori}" th:href="'#' + ${categoria}" th:style="'background-image: url(\'/images/foto_accessori/foto_categorie/' + ${categoria} + '\');'">
+  				  <!-- Contenuto della div per la categoria -->
+  				 <a th:href="'#' + ${categoria}" ></a>
+   				 <h2 th:text="${categoria}"></h2>
+			</div>
+
+	    
+	    </div>
+	</div>
+	<div class="contenitore-di-categorie"  ><!-- Definisco larghezza -->
+	    <div style="width: 80%;"><!-- Definisco box interno con 80% larghezza -->
+	        <div th:each="categoria : ${tutte_categorie_accessori}"><!-- Uso le categorie -->
+	            <h3 th:id="${categoria}" th:text="${categoria}"></h3>
+	            <div class="categoria-box" >
+		            <div class="fiore-card"  th:each="accessorio : ${tutti_accessori}" th:if="${accessorio.categoria_accessorio == categoria}"><!-- Prendo elementi fiore e confronto per fare una scrematura -->
+		                <!-- Contenuto per ogni fiore -->
+						<a th:href="@{/accessorio/{accessorioId}(accessorioId=${accessorio.id})}" >
+							<div>
+			  				 	<img th:if="${accessorio.foto_accessorio != null and !accessorio.foto_accessorio.isEmpty()}"
+	     							th:src="@{'/images/foto_accessori/' + ${accessorio.foto_accessorio[0]}}"
+	     							alt="Immagine di accessorio">
+			  				 	<h2 th:text="${accessorio.nome_accessorio}"></h2>
+
+							</div>
+							</a>
+		            </div>
+	            </div>
+	        </div>            
+	    </div>
+	</div>
+
+	
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
     <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

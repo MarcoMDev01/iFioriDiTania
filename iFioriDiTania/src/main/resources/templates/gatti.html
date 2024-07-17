@@ -3,18 +3,69 @@
 <head>
     <title>Tutti i Gatti</title>
     <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        .container {
+            display: flex;
+            margin-bottom: 20px;
+            padding: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .reverse {
+            flex-direction: row-reverse;
+        }
+        .image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items:center;
+            padding: 20px;
+        }
+        .reverse .image {
+            justify-content: flex-end;
+        }
+        .reverse .details {
+            justify-content: center;
+            align-items:center;
+        }
+        .image img {
+            width: 100%;
+            height: auto;
+        }
+        .gatti {
+            width: 80%;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
-	<div th:replace="~{fragments/headernav :: headernav}"></div>
-    <div class= "contenitore-hero">
-   	 <h1>Elenco di tutti i gatti</h1>
-	    <ul>
-	        <li th:each="gatto : ${tutti_gatti}">
-	            <a th:href="@{/gatto/{id}(id=${gatto.id})}" th:text="${gatto.nome_gatto}"></a>
-	        </li>
-	    </ul>
-    </div> 
-	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class="contenitore-hero" style="min-height:40vh;">
+        <h1>Elenco di tutti i gatti</h1>
+        <div class="gatti">
+            <div th:each="gatto, iterStat : ${tutti_gatti}">
+                <div class="container" th:classappend="${iterStat.index % 2 == 0} ? ' reverse'">
+                    <div class="image">
+                        <img th:src="@{'/images/foto_gatti/' + ${gatto.foto_gatto[0]}}" alt="Immagine di gatto" />
+                    </div>
+                    <div class="details">
+                        <h3 th:text="${gatto.nome_gatto}"></h3>
+                        <p th:text="${gatto.descrizione_gatto}">aaa</p>
+                        <a th:href="@{/gatto/{id}(id=${gatto.id})}">
+                            <button>Dettagli</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/backToTop :: backToTop}"></div>
     <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

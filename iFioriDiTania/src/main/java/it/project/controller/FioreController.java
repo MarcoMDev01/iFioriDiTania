@@ -185,6 +185,13 @@ public class FioreController {
         model.addAttribute("utente", utente);
         return "fiori.html";
     }
+    @GetMapping("/piante")
+    public String getAllPiante(@ModelAttribute("utente") User utente, Model model) {
+        model.addAttribute("tutte_piante", fioreService.getPiante());
+        model.addAttribute("tutte_categorie_fiori", fioreService.getDistinctCategories());
+        model.addAttribute("utente", utente);
+        return "piante.html";
+    }
 
     /**
      * Metodo per visualizzare la pagina con la lista di tutti i fiori (solo per amministratori).

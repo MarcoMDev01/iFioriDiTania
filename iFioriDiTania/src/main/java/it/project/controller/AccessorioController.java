@@ -181,6 +181,7 @@ public class AccessorioController {
     @GetMapping("/accessori")
     public String getAllAccessori(@ModelAttribute("utente") User utente, Model model) {
         model.addAttribute("tutti_accessori", accessorioService.getAllAccessori());
+        model.addAttribute("tutte_categorie_accessori", accessorioService.getDistinctCategories());
         model.addAttribute("utente", utente);
         return "accessori.html";
     }

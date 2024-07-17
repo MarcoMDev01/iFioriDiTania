@@ -1,5 +1,6 @@
 package it.project.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,9 @@ public class AccessorioService {
             }
             accessorioRepository.delete(accessorio);
         }
+    }
+    
+    public List<String> getDistinctCategories() {
+        return accessorioRepository.findDistinctCategories();
     }
 }

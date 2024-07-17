@@ -53,7 +53,9 @@ public class FioreService {
     public List<String> getDistinctCategories() {
         return fioreRepository.findDistinctCategories();
     }
-
+    public List<Fiore> getPiante() {
+        return fioreRepository.findFioriByCategoriaContainingPiante();
+    }
     @Transactional
     public void deleteFiore(Long id) {
         Optional<Fiore> optionalFiore = fioreRepository.findById(id);

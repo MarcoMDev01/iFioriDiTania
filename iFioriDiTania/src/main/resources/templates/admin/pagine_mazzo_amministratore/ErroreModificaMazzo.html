@@ -2,10 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Errore Modifica Mazzo</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1>Errore nella modifica del mazzo</h1>
-    <p>Si è verificato un errore durante la modifica del mazzo. Per favore riprova.</p>
-    <a href="/admin/PaginaModificaMazzo/${mazzo.id}">Torna indietro</a>
-</body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Errore nella modifica del mazzo</h1>
+	    <p>Si è verificato un errore durante la modifica del mazzo. Per favore riprova.</p>
+	    <a href="/admin/PaginaModificaMazzo/${mazzo.id}">Torna indietro</a>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div></body>
 </html>

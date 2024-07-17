@@ -2,10 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Errore Modifica Evento</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1>Errore nella modifica dell'evento</h1>
-    <p>Si è verificato un errore durante la modifica dell'evento. Per favore riprova.</p>
-    <a href="/admin/PaginaModificaEvento/${evento.id}">Torna indietro</a>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Errore nella modifica dell'evento</h1>
+	    <p>Si è verificato un errore durante la modifica dell'evento. Per favore riprova.</p>
+	    <a href="/admin/PaginaModificaEvento/${evento.id}">Torna indietro</a>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

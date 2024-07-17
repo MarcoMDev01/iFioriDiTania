@@ -2,38 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Modifica Recensione</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1>Modifica Recensione</h1>
-    <form th:action="@{/admin/PaginaModificaRecensione/modifica}" th:object="${recensione}" method="post">
-        <input type="hidden" th:field="*{id}" />
-
-        <div>
-            <label>Descrizione:</label>
-            <textarea th:field="*{descrizione_recensione}"></textarea>
-        </div>
-        <div>
-            <label>Approvazione:</label>
-            <input type="checkbox" th:field="*{approvazione}" />
-        </div>
-        <button type="submit">Salva</button>
-    </form>
-    <div>
-        <h3>Foto</h3>
-        <form th:action="@{/admin/RecensionesavePhoto/{recensioneId}(recensioneId=${recensione.id})}" method="post"  enctype="multipart/form-data">
-            <label for="image">Choose image to upload</label>
-            <input type="file" name="image" accept="image/*" required>
-            <button type="submit">Aggiungi Foto</button>
-        </form>
-        <ul>
-            <li th:each="foto : ${recensione.foto_recensione}">
-                <img th:src="@{/images/foto_recensioni/{foto}(foto=${foto})}" alt="Foto Recensione"/>
-                <form th:action="@{'/admin/recensione/removePhoto/' + *{id}}" method="post">
-                    <input type="hidden" name="image" th:value="${foto}">
-                    <button type="submit">Rimuovi Foto</button>
-                </form>
-            </li>
-        </ul>
-    </div>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Modifica Recensione</h1>
+	    <form th:action="@{/admin/PaginaModificaRecensione/modifica}" th:object="${recensione}" method="post">
+	        <input type="hidden" th:field="*{id}" />
+	
+	        <div>
+	            <label>Descrizione:</label>
+	            <textarea th:field="*{descrizione_recensione}"></textarea>
+	        </div>
+	        <div>
+	            <label>Approvazione:</label>
+	            <input type="checkbox" th:field="*{approvazione}" />
+	        </div>
+	        <button type="submit">Salva</button>
+	    </form>
+	    <div>
+	        <h3>Foto</h3>
+	        <form th:action="@{/admin/RecensionesavePhoto/{recensioneId}(recensioneId=${recensione.id})}" method="post"  enctype="multipart/form-data">
+	            <label for="image">Choose image to upload</label>
+	            <input type="file" name="image" accept="image/*" required>
+	            <button type="submit">Aggiungi Foto</button>
+	        </form>
+	        <ul>
+	            <li th:each="foto : ${recensione.foto_recensione}">
+	                <img th:src="@{/images/foto_recensioni/{foto}(foto=${foto})}" alt="Foto Recensione"/>
+	                <form th:action="@{'/admin/recensione/removePhoto/' + *{id}}" method="post">
+	                    <input type="hidden" name="image" th:value="${foto}">
+	                    <button type="submit">Rimuovi Foto</button>
+	                </form>
+	            </li>
+	        </ul>
+	    </div>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

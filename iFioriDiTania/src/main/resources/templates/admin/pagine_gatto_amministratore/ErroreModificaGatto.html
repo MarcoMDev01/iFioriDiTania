@@ -2,10 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Errore Modifica Gatto</title>
+             <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Errore nella modifica del gatto</h1>
-    <p>Si è verificato un errore durante la modifica del gatto. Per favore riprova.</p>
-    <a href="/admin/PaginaModificaGatto/${gatto.id}">Torna indietro</a>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Errore nella modifica del gatto</h1>
+	    <p>Si è verificato un errore durante la modifica del gatto. Per favore riprova.</p>
+	    <a href="/admin/PaginaModificaGatto/${gatto.id}">Torna indietro</a>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

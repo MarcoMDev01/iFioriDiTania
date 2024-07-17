@@ -2,34 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Aggiungi Recensione</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1>Aggiungi Nuova Recensione</h1>
-    <form th:action="@{/admin/aggiungiRecensione}" th:object="${recensione}" method="post" enctype="multipart/form-data">
-
-        <div>
-            <label>Descrizione:</label>
-            <textarea th:field="*{descrizione_recensione}"></textarea>
-        </div>
-        <div>
-            <label for="rating">Valuta la tua esperienza:</label>
-            <select th:field="*{rating}" id="rating">
-                <option value="1" th:selected="${recensione.rating == 1}">1 stella</option>
-                <option value="2" th:selected="${recensione.rating == 2}">2 stelle</option>
-                <option value="3" th:selected="${recensione.rating == 3}">3 stelle</option>
-                <option value="4" th:selected="${recensione.rating == 4}">4 stelle</option>
-                <option value="5" th:selected="${recensione.rating == 5}">5 stelle</option>
-            </select>
-        </div>
-        <div>
-            <label>Approvazione:</label>
-            <input type="checkbox" th:field="*{approvazione}" />
-        </div>
-        <div>
-            <label for="image">Scegli immagine da caricare:</label>
-            <input type="file" name="image" accept="image/*">
-        </div>
-        <button type="submit">Aggiungi</button>
-    </form>
-</body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Aggiungi Nuova Recensione</h1>
+	    <form th:action="@{/admin/aggiungiRecensione}" th:object="${recensione}" method="post" enctype="multipart/form-data">
+	
+	        <div>
+	            <label>Descrizione:</label>
+	            <textarea th:field="*{descrizione_recensione}"></textarea>
+	        </div>
+	        <div>
+	            <label for="rating">Valuta la tua esperienza:</label>
+	            <select th:field="*{rating}" id="rating">
+	                <option value="1" th:selected="${recensione.rating == 1}">1 stella</option>
+	                <option value="2" th:selected="${recensione.rating == 2}">2 stelle</option>
+	                <option value="3" th:selected="${recensione.rating == 3}">3 stelle</option>
+	                <option value="4" th:selected="${recensione.rating == 4}">4 stelle</option>
+	                <option value="5" th:selected="${recensione.rating == 5}">5 stelle</option>
+	            </select>
+	        </div>
+	        <div>
+	            <label>Approvazione:</label>
+	            <input type="checkbox" th:field="*{approvazione}" />
+	        </div>
+	        <div>
+	            <label for="image">Scegli immagine da caricare:</label>
+	            <input type="file" name="image" accept="image/*">
+	        </div>
+	        <button type="submit">Aggiungi</button>
+	    </form>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div></body>
 </html>

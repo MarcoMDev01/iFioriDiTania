@@ -2,37 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dettagli Mazzo</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1 th:text="'Dettagli del mazzo: ' + ${mazzo.nome_mazzo}"></h1>
-    <p>Descrizione: <span th:text="${mazzo.descrizione_mazzo}"></span></p>
-    <p>Archiviato: <span th:text="${mazzo.archiviato_mazzo} ? 'Sì' : 'No'"></span></p>
-    <div>
-		<h3>fiori aggiunti</h3>
-		<li th:each="fioreDelMazzo : ${mazzo.fioriDelMazzo}">
-			<h1 th:text="${fioreDelMazzo.nome_fiore}"></h1>
-			<p>Descrizione: <span th:text="${fioreDelMazzo.descrizione_fiore}"></span></p>
-			<p>Archiviato: <span th:text="${fioreDelMazzo.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
-		    <form th:action="@{'/admin/mazzo/removePhoto/' + *{id}}" method="post">
-		        <input type="hidden" name="image" th:value="${foto}">
-		        <button type="submit">Rimuovi Foto</button>
-		    </form>
-		</li>
-		<ul>		<h3>fiori da aggiungere</h3>
-
-		        <li th:each="fiore : ${fiori}">
-		            <a th:href="@{/admin/PaginaModificaFiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
-					<form th:action="@{/admin/aggiungiFioreAlMazzo/{mazzoId}(mazzoId=${mazzo.id})}/{fioreId}(fioreId=${fiore.id})}" method="post">
-					    <button type="submit">aggiungi  fiore al mazzo</button>
-					</form>
-		        </li>
-		    </ul>
-        <h3>Foto</h3>
-        <ul>
-            <li th:each="foto : ${mazzo.foto_mazzo}">
-                <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
-            </li>
-        </ul>
-    </div>
-</body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1 th:text="'Dettagli del mazzo: ' + ${mazzo.nome_mazzo}"></h1>
+	    <p>Descrizione: <span th:text="${mazzo.descrizione_mazzo}"></span></p>
+	    <p>Archiviato: <span th:text="${mazzo.archiviato_mazzo} ? 'Sì' : 'No'"></span></p>
+	    <div>
+			<h3>fiori aggiunti</h3>
+			<li th:each="fioreDelMazzo : ${mazzo.fioriDelMazzo}">
+				<h1 th:text="${fioreDelMazzo.nome_fiore}"></h1>
+				<p>Descrizione: <span th:text="${fioreDelMazzo.descrizione_fiore}"></span></p>
+				<p>Archiviato: <span th:text="${fioreDelMazzo.archiviato_fiore} ? 'Sì' : 'No'"></span></p>
+			    <form th:action="@{'/admin/mazzo/removePhoto/' + *{id}}" method="post">
+			        <input type="hidden" name="image" th:value="${foto}">
+			        <button type="submit">Rimuovi Foto</button>
+			    </form>
+			</li>
+			<ul>		<h3>fiori da aggiungere</h3>
+	
+			        <li th:each="fiore : ${fiori}">
+			            <a th:href="@{/admin/PaginaModificaFiore/{id}(id=${fiore.id})}" th:text="${fiore.nome_fiore}"></a>
+						<form th:action="@{/admin/aggiungiFioreAlMazzo/{mazzoId}(mazzoId=${mazzo.id})}/{fioreId}(fioreId=${fiore.id})}" method="post">
+						    <button type="submit">aggiungi  fiore al mazzo</button>
+						</form>
+			        </li>
+			    </ul>
+	        <h3>Foto</h3>
+	        <ul>
+	            <li th:each="foto : ${mazzo.foto_mazzo}">
+	                <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
+	            </li>
+	        </ul>
+	    </div>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div></body>
 </html>

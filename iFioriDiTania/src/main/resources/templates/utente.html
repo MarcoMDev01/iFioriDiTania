@@ -2,14 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dettagli Utente</title>
+         <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1 th:text=" ${utente.name}"></h1>
-    <p>Descrizione: <span th:text="${utente.surname}"></span></p>
-    <div>
-        <h3>Foto</h3>
-
-    </div>
- 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1 th:text=" ${utente.name}"></h1>
+	    <p>Descrizione: <span th:text="${utente.surname}"></span></p>
+	    <div>
+	        <h3>Foto</h3>
+	
+	    </div>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

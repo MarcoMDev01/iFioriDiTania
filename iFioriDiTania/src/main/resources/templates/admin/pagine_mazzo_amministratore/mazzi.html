@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Amministrazione - Tutti i Mazzi</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1>Gestione di tutti i mazzi</h1>
-    <ul>
-        <li th:each="mazzo : ${tutti_mazzi}">
-            <a th:href="@{/admin/PaginaModificaMazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
-			<form th:action="@{/admin/rimuoviMazzo/{id}(id=${mazzo.id})}" method="post">
-			    <input type="hidden" name="_method" value="delete" />
-			    <button type="submit">ELIMINA</button>
-			</form>
-        </li>
-    </ul>
-    <a href="/admin/pagina_aggiungiMazzo">Aggiungi Nuovo Mazzo</a>
-</body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Gestione di tutti i mazzi</h1>
+	    <ul>
+	        <li th:each="mazzo : ${tutti_mazzi}">
+	            <a th:href="@{/admin/PaginaModificaMazzo/{id}(id=${mazzo.id})}" th:text="${mazzo.nome_mazzo}"></a>
+				<form th:action="@{/admin/rimuoviMazzo/{id}(id=${mazzo.id})}" method="post">
+				    <input type="hidden" name="_method" value="delete" />
+				    <button type="submit">ELIMINA</button>
+				</form>
+	        </li>
+	    </ul>
+	    <a href="/admin/pagina_aggiungiMazzo">Aggiungi Nuovo Mazzo</a>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div></body>
 </html>

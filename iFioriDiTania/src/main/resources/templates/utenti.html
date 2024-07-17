@@ -2,14 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti gli Utenti</title>
+         <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Elenco di tutti gli utenti</h1>
-    <ul>
-        <li th:each="utente : ${tutti_utenti}">
-            <a th:href="@{/utente/{id}(id=${utente.id})}" th:text="${utente.name}"></a>
-        </li>
-    </ul>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Elenco di tutti gli utenti</h1>
+	    <ul>
+	        <li th:each="utente : ${tutti_utenti}">
+	            <a th:href="@{/utente/{id}(id=${utente.id})}" th:text="${utente.name}"></a>
+	        </li>
+	    </ul>
+	 </div> 
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

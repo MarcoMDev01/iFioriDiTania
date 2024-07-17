@@ -2,19 +2,137 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dettagli Mazzo</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .prev, .next {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+    </style>
 </head>
 <body>
-    <h1 th:text=" ${mazzo.nome_mazzo}"></h1>
-    <p>Descrizione: <span th:text="${mazzo.descrizione_mazzo}"></span></p>
-    <p>Archiviato: <span th:text="${mazzo.archiviato_mazzo} ? 'Sì' : 'No'"></span></p>
-    <div>
-        <h3>Foto</h3>
-        <ul>
-            <li th:each="foto : ${mazzo.foto_mazzo}">
-                <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
-            </li>
-        </ul>
+    <div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class="contenitore-hero" style="min-height:40vh;display: flex;flex-direction: row;">
+        
+        <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin-right: 10vh;">
+        <h1 th:text="${mazzo.nome_mazzo}"></h1>
+        <p><span th:text="${mazzo.descrizione_mazzo}"></span></p>
+        </div>
+        <div >
+            
+            <div class="slider">
+                <div class="slides" id="slides">
+                    <div th:each="foto : ${mazzo.foto_mazzo}">
+                        <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <div class="prev" onclick="moveSlide(-1)">&#10094;</div>
+                    <div class="next" onclick="moveSlide(1)">&#10095;</div>
+                </div>
+                <div class="dots" id="dots"></div>
+            </div>
+            	        <ul>
+	            <li th:each="foto : ${mazzo.foto_mazzo}">
+	                <img th:src="@{/images/foto_mazzi/{foto}(foto=${foto})}" alt="Foto Mazzo"/>
+	            </li>
+	        </ul>
+        </div>
     </div>
-	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    
+    <div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
+    <script>
+        let slideIndex = 0;
+
+        function showSlides(n) {
+            let slides = document.querySelectorAll(".slides > div");
+            let dots = document.querySelectorAll(".dot");
+
+            if (n >= slides.length) {
+                slideIndex = 0;
+            }
+            if (n < 0) {
+                slideIndex = slides.length - 1;
+            }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex].style.display = "block";
+            dots[slideIndex].className += " active";
+        }
+
+        function moveSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let slides = document.querySelectorAll(".slides > div");
+            let dotsContainer = document.getElementById("dots");
+            for (let i = 0; i < slides.length; i++) {
+                let dot = document.createElement("span");
+                dot.classList.add("dot");
+                dot.setAttribute("onclick", "currentSlide(" + i + ")");
+                dotsContainer.appendChild(dot);
+            }
+            showSlides(slideIndex);
+        });
+    </script>
 </body>
 </html>

@@ -2,19 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dettagli Evento</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1 th:text=" ${evento.nome_evento}"></h1>
-    <p>Descrizione: <span th:text="${evento.descrizione_evento}"></span></p>
-    <p>Archiviato: <span th:text="${evento.archiviato_evento} ? 'Sì' : 'No'"></span></p>
-    <div>
-        <h3>Foto</h3>
-        <ul>
-            <li th:each="foto : ${evento.foto_evento}">
-                <img th:src="@{/images/foto_eventi/{foto}(foto=${foto})}" alt="Foto Evento"/>
-            </li>
-        </ul>
-    </div>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+    	<h1 th:text=" ${evento.nome_evento}"></h1>
+	    <p>Descrizione: <span th:text="${evento.descrizione_evento}"></span></p>
+	    <p>Archiviato: <span th:text="${evento.archiviato_evento} ? 'Sì' : 'No'"></span></p>
+	    <div>
+	        <h3>Foto</h3>
+	        <ul>
+	            <li th:each="foto : ${evento.foto_evento}">
+	                <img th:src="@{/images/foto_eventi/{foto}(foto=${foto})}" alt="Foto Evento"/>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+
+	
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

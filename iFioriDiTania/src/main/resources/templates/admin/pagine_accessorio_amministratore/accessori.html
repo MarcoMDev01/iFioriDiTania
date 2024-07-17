@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Amministrazione - Tutti gli Accessori</title>
+             <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Gestione di tutti gli accessori</h1>
-    <ul>
-        <li th:each="accessorio : ${tutti_accessori}">
-            <a th:href="@{/admin/PaginaModificaAccessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
-			<form th:action="@{/admin/rimuoviAccessorio/{id}(id=${accessorio.id})}" method="post">
-			    <input type="hidden" name="_method" value="delete" />
-			    <button type="submit">ELIMINA</button>
-			</form>
-        </li>
-    </ul>
-    <a href="/admin/pagina_aggiungiAccessorio">Aggiungi Nuovo Accessorio</a>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Gestione di tutti gli accessori</h1>
+	    <ul>
+	        <li th:each="accessorio : ${tutti_accessori}">
+	            <a th:href="@{/admin/PaginaModificaAccessorio/{id}(id=${accessorio.id})}" th:text="${accessorio.nome_accessorio}"></a>
+				<form th:action="@{/admin/rimuoviAccessorio/{id}(id=${accessorio.id})}" method="post">
+				    <input type="hidden" name="_method" value="delete" />
+				    <button type="submit">ELIMINA</button>
+				</form>
+	        </li>
+	    </ul>
+	    <a href="/admin/pagina_aggiungiAccessorio">Aggiungi Nuovo Accessorio</a>
+		 </div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

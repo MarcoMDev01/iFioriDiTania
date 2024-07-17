@@ -2,41 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Modifica Fiore</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
-<body>
-    <h1>Modifica Fiore</h1>
-    <form th:action="@{/admin/PaginaModificaFiore/modifica}" th:object="${fiore}" method="post">
-        <input type="hidden" th:field="*{id}" />
-        <div>
-            <label>Nome:</label>
-            <input type="text" th:field="*{nome_fiore}" />
-        </div>
-        <div>
-            <label>Descrizione:</label>
-            <textarea th:field="*{descrizione_fiore}"></textarea>
-        </div>
-        <div>
-            <label>Archiviato:</label>
-            <input type="checkbox" th:field="*{archiviato_fiore}" />
-        </div>
-        <button type="submit">Salva</button>
-    </form>
-    <div>
-        <h3>Foto</h3>
-			<form th:action="@{/admin/FioresavePhoto/{fioreId}(fioreId=${fiore.id})}" method="post"  enctype="multipart/form-data">
-				<label for="image">Choose image to upload</label>
-				<input type="file" name="image" accept="image/*" required>
-			 	<button type="submit">Aggiungi Foto</button>
-		    </form>
-        <ul>
-            <li th:each="foto : ${fiore.foto_fiore}">
-                <img th:src="@{/images/foto_fiori/{foto}(foto=${foto})}" alt="Foto Fiore"/>
-				<form th:action="@{'/admin/fiore/removePhoto/' + *{id}}" method="post">
-				                   <input type="hidden" name="image" th:value="${foto}">
-				                   <button type="submit">Rimuovi Foto</button>
-				               </form>
-            </li>
-        </ul>
-    </div>
+	<body>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Modifica Fiore</h1>
+	    <form th:action="@{/admin/PaginaModificaFiore/modifica}" th:object="${fiore}" method="post">
+	        <input type="hidden" th:field="*{id}" />
+	        <div>
+	            <label>Nome:</label>
+	            <input type="text" th:field="*{nome_fiore}" />
+	        </div>
+	        <div>
+	            <label>Descrizione:</label>
+	            <textarea th:field="*{descrizione_fiore}"></textarea>
+	        </div>
+	        <div>
+	            <label>Archiviato:</label>
+	            <input type="checkbox" th:field="*{archiviato_fiore}" />
+	        </div>
+	        <button type="submit">Salva</button>
+	    </form>
+	    <div>
+	        <h3>Foto</h3>
+				<form th:action="@{/admin/FioresavePhoto/{fioreId}(fioreId=${fiore.id})}" method="post"  enctype="multipart/form-data">
+					<label for="image">Choose image to upload</label>
+					<input type="file" name="image" accept="image/*" required>
+				 	<button type="submit">Aggiungi Foto</button>
+			    </form>
+	        <ul>
+	            <li th:each="foto : ${fiore.foto_fiore}">
+	                <img th:src="@{/images/foto_fiori/{foto}(foto=${foto})}" alt="Foto Fiore"/>
+					<form th:action="@{'/admin/fiore/removePhoto/' + *{id}}" method="post">
+					                   <input type="hidden" name="image" th:value="${foto}">
+					                   <button type="submit">Rimuovi Foto</button>
+					               </form>
+	            </li>
+	        </ul>
+	    </div>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

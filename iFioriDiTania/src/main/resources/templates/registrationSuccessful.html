@@ -8,12 +8,16 @@
 </head>
 
 <body>
-    <div th:replace="~{fragments/headernav :: headernav}"></div>
-    <div class="hero-login">
-		<h1>Congratulazioni ti sei registrato!</h1>
-
-    </div>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <div th:replace="~{fragments/headernav :: headernav}"></div>
+	    <div class="hero-login">
+			<h1>Congratulazioni ti sei registrato!</h1>
+	
+	    </div>
+		 </div> 
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 
 </html>

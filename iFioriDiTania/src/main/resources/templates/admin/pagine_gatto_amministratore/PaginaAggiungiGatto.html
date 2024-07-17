@@ -2,26 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Aggiungi Gatto</title>
+             <link rel="stylesheet" href="/css/styles.css" />
+    
 </head>
 <body>
-    <h1>Aggiungi Nuovo Gatto</h1>
-    <form th:action="@{/admin/aggiungiGatto}" th:object="${gatto}" method="post" enctype="multipart/form-data">
-        <div>
-            <label>Nome:</label>
-            <input type="text" th:field="*{nome_gatto}" />
-        </div>
-        <div>
-            <label>Descrizione:</label>
-            <textarea th:field="*{descrizione_gatto}"></textarea>
-        </div>
-        <div>
-            <label>Archiviato:</label>
-            <input type="checkbox" th:field="*{archiviato_gatto}" />
-        </div>
-		<label for="image">Choose image to upload</label>
-		 <input type="file" name="image" accept="image/*" required>
-        <button type="submit">Aggiungi</button>
-    </form>
-
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Aggiungi Nuovo Gatto</h1>
+	    <form th:action="@{/admin/aggiungiGatto}" th:object="${gatto}" method="post" enctype="multipart/form-data">
+	        <div>
+	            <label>Nome:</label>
+	            <input type="text" th:field="*{nome_gatto}" />
+	        </div>
+	        <div>
+	            <label>Descrizione:</label>
+	            <textarea th:field="*{descrizione_gatto}"></textarea>
+	        </div>
+	        <div>
+	            <label>Archiviato:</label>
+	            <input type="checkbox" th:field="*{archiviato_gatto}" />
+	        </div>
+			<label for="image">Choose image to upload</label>
+			 <input type="file" name="image" accept="image/*" required>
+	        <button type="submit">Aggiungi</button>
+	    </form>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>

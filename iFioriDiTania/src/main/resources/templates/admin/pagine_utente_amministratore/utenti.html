@@ -2,19 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Amministrazione - Tutti gli Utenti</title>
+             <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Gestione di tutti gli utenti</h1>
-    <ul>
-        <li th:each="utente : ${tutti_utenti}">
-            <a th:href="@{/utente/{utenteId}(utenteId=${utente.id})}" th:text="${utente.name}"></a>
-			<p th:text="${utente.provider}"></p>
-            <form th:action="@{/admin/remove/user/{utenteid}(utenteid=${utente.id})}" method="post">
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit">ELIMINA</button>
-            </form>
-        </li>
-    </ul>
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Gestione di tutti gli utenti</h1>
+	    <ul>
+	        <li th:each="utente : ${tutti_utenti}">
+	            <a th:href="@{/utente/{utenteId}(utenteId=${utente.id})}" th:text="${utente.name}"></a>
+				<p th:text="${utente.provider}"></p>
+	            <form th:action="@{/admin/remove/user/{utenteid}(utenteid=${utente.id})}" method="post">
+	                <input type="hidden" name="_method" value="delete" />
+	                <button type="submit">ELIMINA</button>
+	            </form>
+	        </li>
+	    </ul>
+	</div> 
+	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>	    
  
 </body>
 </html>

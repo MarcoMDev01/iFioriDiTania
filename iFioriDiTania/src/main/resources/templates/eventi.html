@@ -2,14 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tutti gli Eventi</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <h1>Elenco di tutti gli eventi</h1>
-    <ul>
-        <li th:each="evento : ${tutti_eventi}">
-            <a th:href="@{/evento/{id}(id=${evento.id})}" th:text="${evento.nome_evento}"></a>
-        </li>
-    </ul>
+
+	<div th:replace="~{fragments/headernav :: headernav}"></div>
+    <div class= "contenitore-hero">
+	    <h1>Elenco di tutti gli eventi</h1>
+	    <ul>
+	        <li th:each="evento : ${tutti_eventi}">
+	            <a th:href="@{/evento/{id}(id=${evento.id})}" th:text="${evento.nome_evento}"></a>
+	        </li>
+	    </ul>
+		<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+		</div>
+
+	
 	<div th:replace="~{fragments/backToTop :: backToTop}"></div>
+    <div th:replace="~{fragments/footernav :: footernav}"></div>
 </body>
 </html>
